@@ -5,6 +5,7 @@ import requests
 import os
 import time
 import datetime
+import ConfigParser
 from bs4 import BeautifulSoup
 import json
 ######
@@ -128,7 +129,7 @@ class PinnacleCheck():
                 if hasNo:
                       tag = 'no ticket'
                       print tag
-                      return u'查无此单!'
+                      return u'没有此单'
                 else:
                     if hasRejected:
                         tag = str(ticket)+' has been rejected!'
@@ -141,12 +142,12 @@ class PinnacleCheck():
             else:
                 tag = 'not Pinnacle\'s ticket'
                 print tag
-                return u'非Ponnacle账单'
+                return u'没有此单'
         except Exception, e:
             print e
             return False
 
-    def ticketCheck(self,ticket):
+    def ticketCheck(self,nickname,ticket):
 
         self.__loginmain()
         r=self.__kickoff()
@@ -412,25 +413,18 @@ class SboCheck():
         }
         return ticket
 
-
-if __name__ == '__main__':
-
-
-    #lcheck = PinnacleCheck()
-    #username = 'hh8c101sub02'
-    #username = 'CK8T720'
-    #password = ''
-
-
-    #lcheck.setInfo(username,password)
-    #result = lcheck.ticketCheck(1504251405157002)
-    #print "result="+str(result)
-    # noinspection PyArgumentList
-
-    zhibo=ZhiboCheck()
-    zhibo.ticketCheck('yanjing083',1504260247425008)
-
-
-
-
-
+def loadAccount(cfile):
+    aList={}
+    try:
+        config=ConfigParser.SafeConfigParser()
+        config.read(cfile)
+        aList['Pinnacle_username'] = config.get('Pinnacle','Username')
+        aList['Pinnacle_password'] = config.get('Pinnacle','Password')
+        aList['Zhibo_username'] = config.get('Zhibo','Username')
+        aList['Zhibo_password'] = config.get('Zhibo','Password')
+        aList['Sbo_username'] = config.get('Sbo','Username')
+        aList['Sbo_password'] = config.get('Sbo','Password')
+        return aList
+    except Exception, e:
+        print 'read config.ini error'
+        return False

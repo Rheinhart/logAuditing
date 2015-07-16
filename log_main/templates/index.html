@@ -6,7 +6,6 @@
  <!-- Le styles -->
     <link href="http://cdn.bootcss.com/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="assets/css/docs.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,7 +33,7 @@
         <li><a href="#" id="check_all_Sbo">检查Sbo账单</a></li>
       </ul>
     </div>
-<button type="button" class="btn btn-info"  style="width:140px" id="cache_data">缓存当前数据</button>
+<button type="button" class="btn btn-info"  style="width:140px" id="save_log">保存已检查log</button>
 <hr></hr>
 <hr></hr>
 <div class="alert" id="list_status">
@@ -52,6 +51,7 @@
           <th>用户</th>
           <th>收入</th>
           <th>队伍</th>
+          <th>比分</th>
           <th>预期水位</th>
           <th>成交</th>
           <th>赔率</th>
@@ -67,22 +67,47 @@
 <script>
 
     $(document).ready(function(){
+
       //check all
       $('#check_all').click(function(){
         $('#list_status').html('<i class="icon-refresh"></i> 正在检查全部账单,请稍后'); 
         
-         $.getJSON('/ajax_checkall/',function(ret){               
+         $.getJSON('/ajax_checkall/All',function(ret){               
              $('#list_status').html('<i class="icon-search"></i> 全部账单检查完毕');    
           });
       });
-      
-      //save
 
-      $('#cache_data').click(function(){
-        $('#list_status').html('<i class="icon-refresh"></i> 正在缓存当前数据,请稍后'); 
+      $('#check_all_Pinnacle').click(function(){
+
+        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Pinnacle账单:'); 
+               
+        $.getJSON('/ajax_checkall/Pinnacle',function(ret){               
+             $('#list_status').html('<i class="icon-search"></i> 全部Pinnacle账单检查完毕');    
+        });
+      });
+      $('#check_all_Zhibo').click(function(){
+
+        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Zhibo账单:'); 
+               
+        $.getJSON('/ajax_checkall/Zhibo',function(ret){               
+             $('#list_status').html('<i class="icon-search"></i> 全部Zhibo账单检查完毕');    
+        });
+      });
+      $('#check_all_Sbo').click(function(){
+
+        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Sbo账单:'); 
+               
+        $.getJSON('/ajax_checkall/Sbo',function(ret){               
+             $('#list_status').html('<i class="icon-search"></i> 全部Sbo账单检查完毕');    
+        });
+      });
+
+      //save
+      $('#save_log').click(function(){
+        $('#list_status').html('<i class="icon-refresh"></i> 正在保存当前log数据,请稍后');
         
-         $.getJSON('/ajax_checkall/',function(ret){               
-             $('#list_status').html('<i class="icon-search"></i> 数据缓存完毕');    
+         $.getJSON('/ajax_saveLog',function(ret){               
+             $('#list_status').html('<i class="icon-search"></i> 最新log数据保存完毕');    
           });
       });           
 
@@ -101,11 +126,12 @@
                         "<td>"+ret[i]['Account']+"</td>"+
                         "<td>"+ret[i]['Username']+"</td>"+
                         "<td>"+ret[i]['Income']+"</td>"+
-                        "<td>"+ret[i]['Info']+"</td>"+
+                        "<td>"+ret[i]['Game']+"</td>"+
+                        "<td>"+ret[i]['Score']+"</td>"+
                         "<td>"+ret[i]['Waterlevel']+"</td>"+
                         "<td>"+ret[i]['Deal']+"</td>"+
                         "<td>"+ret[i]['Odd']+"</td>"+
-                        "<td>"+ret[i]['Amount']+"</td>"+                        
+                        "<td>"+ret[i]['Amount']+"</td>"+
                         "<td>"+ret[i]['Balance']+"</td></tr>")
 
                         $('#status_'+i).css("background","CornflowerBlue")
@@ -145,11 +171,12 @@
                         "<td>"+ret[i]['Account']+"</td>"+
                         "<td>"+ret[i]['Username']+"</td>"+
                         "<td>"+ret[i]['Income']+"</td>"+
-                        "<td>"+ret[i]['Info']+"</td>"+
+                        "<td>"+ret[i]['Game']+"</td>"+
+                        "<td>"+ret[i]['Score']+"</td>"+
                         "<td>"+ret[i]['Waterlevel']+"</td>"+
                         "<td>"+ret[i]['Deal']+"</td>"+
                         "<td>"+ret[i]['Odd']+"</td>"+
-                        "<td>"+ret[i]['Amount']+"</td>"+  
+                        "<td>"+ret[i]['Amount']+"</td>"+
                         "<td>"+ret[i]['Balance']+"</td></tr>")
 
                         $('#status_'+i).css("background","CornflowerBlue")

@@ -2,18 +2,21 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from logRefresh import *
-from ticketCheck import PinnacleCheck,ZhiboCheck,SboCheck
+from ticketCheck import PinnacleCheck,ZhiboCheck,SboCheck,loadAccount
 from bs4 import BeautifulSoup
 #from antiCapcha import *
 import json
+import ConfigParser
 
 try:
     from django.http import JsonResponse
 except ImportError:
     from .tool import JsonResponse
 
-logList=[]
-webInfo={'Pinnacle_username':'CK8T720','Pinnacle_passowrd':'','Zhibo_username':'j102020i01t7sub00','Zhibo_password':'','Sbo_username':'eehet711','Sbo_passowrd':''}
+
+webInfo=loadAccount('config.ini') #load username and password
+logList=[] #全局变量, 所有log中是waiting状态的数据解析后都储存在这里
+
 
 def index(request):
 
@@ -29,48 +32,103 @@ def ajax_refreshLog(request):
 
 def ajax_check(request,num):
 
+    """检查所有账户账单"""
     global logList
 
     i= int(num)
 
-    #to judge the account in the logList
+    #to find the account in the logList
 
     if logList[i]['Account']=='Pinnacle':
-        tcheck = PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_passowrd'])
-        logList[i]['Status'] = tcheck.ticketCheck(logList[i]['Ticket'])
+        tcheck = PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
 
     elif logList[i]['Account']=='Zhibo':
-        tcheck =  ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
-        logList[i]['Status'] = tcheck.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
+        tcheck = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
 
     elif logList[i]['Account']=='Sbo':
-        tcheck =  Sbo(webInfo['Sbo_username'],webInfo['Sbo_password'])
-        #logList[i]['Status'] = tcheck.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
+        tcheck = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
+
+    logList[i]['Status'] = tcheck.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
 
     return HttpResponse(json.dumps(logList), content_type='application/json')
 
 
-def ajax_checkAll(request):
+def ajax_checkAll(request, account):
 
     global logList
 
-    for log in logList:
-        if log['Status']=='Waiting':
-            if log['Account']=='Pinnacle':
-                print 'Checking '+log['Account']+' '+log['Ticket']
-                tcheck= PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_passowrd'])
-                log['Status'] = tcheck.ticketCheck(log['Ticket'])
-            elif log['Account']=='Zhibo':
-                print 'Checking '+log['Account']+' '+log['Ticket']
-                tcheck =  ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
-                log['Status'] = tcheck.ticketCheck(log['Username'],log['Ticket'])
-            elif logList[i]['Account']=='Zhibo':
-                print 'Checking '+log['Account']+' '+log['Ticket']
-                tcheck =  Sbo(webInfo['Sbo_username'],webInfo['Sbo_password'])
-                #logList[i]['Status'] = tcheck.ticketCheck('J102020I01T7103',logList[i]['Ticket'])
+    if account == 'All':
+        for log in logList:
+            if log['Status'] =='Waiting':
+                if log['Account'] == 'Pinnacle':
+                    tcheck= PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
+                elif log['Account'] == 'Zhibo':
+                    tcheck = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
+                elif log['Account'] == 'Sbo':
+                    tcheck = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
 
+                print 'Checking '+log['Account']+' '+log['Ticket']
+                logList['Status'] = tcheck.ticketCheck(log['Username'],logList['Ticket'])
+
+    elif account == 'Pinnacle':
+        for log in logList:
+            if log['Status'] == 'Waiting' and log['Account'] == 'Pinnacle':
+                    print 'Checking '+log['Account']+' '+log['Ticket']
+                    tcheck= PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
+                    log['Status'] = tcheck.ticketCheck(log['Username'],log['Ticket'])
+
+    elif account == 'Zhibo':
+        for log in logList:
+            if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
+                    print 'Checking '+log['Account']+' '+log['Ticket']
+                    tcheck = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
+                    log['Status'] = tcheck.ticketCheck(log['Username'],log['Ticket'])
+
+    elif account == 'Sbo':
+        for log in logList:
+            if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
+                    print 'Checking '+log['Account']+' '+log['Ticket']
+                    tcheck = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
+                    logList['Status'] = tcheck.ticketCheck(log['Username'],logList['Ticket'])
+
+    #缓存当前数据
     cache=open('cache.txt','w+')
     cPickle.dump(logList, cache)
     cache.close()
 
     return HttpResponse(json.dumps(logList), content_type='application/json')
+
+def ajax_saveLog(request):
+    """保存检查过的log文件"""
+
+    global logList
+
+    WAITING_STATUS = '\xd7\xb4\xcc\xac:Waiting' #Tag
+    logname=datetime.date.today().strftime("%Y-%m-%d")
+    newlogfile ='new_logs\\'+logname+'.log'#新log地址
+    logfile = log_path + logname + '.log'
+    try:
+        if os.path.isfile(newlogfile):
+            os.remove(newlogfile)
+        log=open(logfile,'r')
+        lines = log.readlines()
+        for line in lines:
+            line = line.split()
+            if WAITING_STATUS in line:
+                ticket = re.findall("\xb5\xa5\xba\xc5:(.*)",line[5])[0] #paser ticket
+                for logline in logList:
+                    if ticket == logline['Ticket']:
+                        NEWSTATUS = (u'状态:').encode('gb2312')+logline['Status'].encode('gb2312')
+                        line[6]=line[6].replace(WAITING_STATUS,NEWSTATUS)
+                    else:
+                        pass
+            line.append('\n')
+            line='\t'.join(line)
+            open(newlogfile,'a+').writelines(line)
+    except IOError:
+        print('Log file Error!')
+    finally:
+        log.close()
+
+    return HttpResponse(json.dumps(logList), content_type='application/json')
+

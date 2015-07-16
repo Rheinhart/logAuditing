@@ -116,8 +116,8 @@
           $('#logtable_body').empty();
               $.getJSON('/ajax_refreshLog/',function(ret){
                     //返回值 ret 在这里是一个列表
-                    $.each(ret, function(i, item){                      
-
+                    $.each(ret, function(index, item){
+                      var i=ret.length-index-1;//倒序排列显示
                        $('#logtable_body').append(
                         "<tr id='test'>"+"<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+                        
                         "<td>"+ret[i]['Time']+"</td>"+
@@ -162,7 +162,8 @@
               $('#logtable_body').empty();
               $.getJSON('/ajax_refreshLog/',function(ret){
                     //返回值 ret 在这里是一个列表
-                    $.each(ret, function(i, item){
+                    $.each(ret, function(index, item){
+                       var i=ret.length-index-1;
                        $('#logtable_body').append(
                         "<tr id='test'>"+"<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+                
                        "<td>"+ret[i]['Time']+"</td>"+
@@ -201,7 +202,7 @@
                     });           
                  
               });    
-          }, 10000);
+          }, 20000);
 
         // setInterval(function() {
              

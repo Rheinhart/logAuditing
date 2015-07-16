@@ -5,12 +5,12 @@ import requests
 import os
 import time
 import datetime
-import cPickle
+#import cPickle
 ######
 reload(sys)
 ######
 
-log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+u'\\负打负更新'+'\\logs\\'
+log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+u'\\负打负7-1'+'\\logs\\'
 #log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+'\\logs\\'
 print log_path
 rlist = []

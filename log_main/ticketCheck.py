@@ -23,6 +23,10 @@ class PinnacleCheck():
         self.password = password
         self.isLogin = False
 
+        #automatic login
+        self.__loginmain()
+        self.__kickoff()
+
     def __loginmain(self):
         '''login the main page'''
 
@@ -86,7 +90,7 @@ class PinnacleCheck():
             if  re.search(tag,self.pinnacle_balance):
                 #login successful
                 self.isLogin = True
-                #print 'login successful!\n'
+                print 'Pinnacle login successful!\n'
                 return True
             else:
                 #login failure
@@ -122,43 +126,44 @@ class PinnacleCheck():
             tagIsTicket='Trans\.'
             tagHasNo = 'No data to display'
             tagReject ='Rejected'
+            tagWaiting = 'Waiting'
+            tagSuccess = 'Success'
             isticket=re.findall(tagIsTicket,ticketinfo.content)
             if isticket:
                 hasNo=re.findall(tagHasNo,ticketinfo.content)
                 hasRejected=re.findall(tagReject,ticketinfo.content)
+                hasSuccess = re.findall(tagSuccess,ticketinfo.content)
+                #hasWaiting = re.findall(tagWaiting,ticketinfo.content)
                 if hasNo:
                       tag = 'no ticket'
-                      print tag
                       return u'没有此单'
                 else:
                     if hasRejected:
                         tag = str(ticket)+' has been rejected!'
-                        print tag
                         return u'此单已划!'
+                    elif hasSuccess:
+                        tag = str(ticket)+' is waiting!'
+                        return 'Waiting'
                     else:
-                        tag = str(ticket)+' is successful!'
-                        print tag
-                        return 'Success'
+                        tag = str(ticket)+' is waiting!'
+                        return 'Waiting'
+
             else:
                 tag = 'not Pinnacle\'s ticket'
-                print tag
                 return u'没有此单'
+            print tag
         except Exception, e:
             print e
             return False
 
     def ticketCheck(self,nickname,ticket):
 
-        self.__loginmain()
-        r=self.__kickoff()
-
-        if r:
-            try:
-                checkT=self.__findticket(ticket)
-                #print checkT
-                return checkT
-            except:
-                return False
+        try:
+            checkT=self.__findticket(ticket)
+            #print checkT
+            return checkT
+        except:
+            return False
 
 
 class ZhiboCheck():
@@ -310,7 +315,7 @@ class SboCheck():
         with open("Sbo_capcha.jpg","wb") as output:
             output.write(r.content)
         output.close()
-        os.startfile("capcha.jpg")
+        os.startfile("Sbo_capcha.jpg")
         print "enter captcha:"
         cap = input()
         postDict = {

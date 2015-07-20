@@ -6,6 +6,7 @@ from ticketCheck import PinnacleCheck,ZhiboCheck,SboCheck,loadAccount
 from bs4 import BeautifulSoup
 #from antiCapcha import *
 import json
+import cPickle
 import ConfigParser
 
 try:
@@ -15,6 +16,10 @@ except ImportError:
 
 
 webInfo=loadAccount('config.ini') #load username and password
+p_check = PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
+z_check = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
+#s_check = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
+
 logList=[] #全局变量, 所有log中是waiting状态的数据解析后都储存在这里
 
 
@@ -32,7 +37,7 @@ def ajax_refreshLog(request):
 
 def ajax_check(request,num):
 
-    """检查所有账户账单"""
+    """检查账户账单"""
     global logList
 
     i= int(num)
@@ -40,20 +45,20 @@ def ajax_check(request,num):
     #to find the account in the logList
 
     if logList[i]['Account']=='Pinnacle':
-        tcheck = PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
+        logList[i]['Status'] = p_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
 
     elif logList[i]['Account']=='Zhibo':
-        tcheck = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
+        logList[i]['Status'] = z_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
 
     elif logList[i]['Account']=='Sbo':
-        tcheck = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
-
-    logList[i]['Status'] = tcheck.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
+        pass
+        #logList[i]['Status'] = s_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
 
     return HttpResponse(json.dumps(logList), content_type='application/json')
 
 
 def ajax_checkAll(request, account):
+    """检查所有账户账单"""
 
     global logList
 
@@ -61,35 +66,32 @@ def ajax_checkAll(request, account):
         for log in logList:
             if log['Status'] =='Waiting':
                 if log['Account'] == 'Pinnacle':
-                    t= PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
+                    logList['Status'] = p_check.ticketCheck(log['Username'],logList['Ticket'])
                 elif log['Account'] == 'Zhibo':
-                    t = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
+                    logList['Status'] = z_check.ticketCheck(log['Username'],logList['Ticket'])
                 elif log['Account'] == 'Sbo':
-                    t = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
+                    pass
+                    #logList['Status'] = s_check.ticketCheck(log['Username'],logList['Ticket'])
 
                 print 'Checking '+log['Account']+' '+log['Ticket']
-                logList['Status'] = t.ticketCheck(log['Username'],logList['Ticket'])
 
     elif account == 'Pinnacle':
         for log in logList:
             if log['Status'] == 'Waiting' and log['Account'] == 'Pinnacle':
                     print 'Checking '+log['Account']+' '+log['Ticket']
-                    t= PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
-                    log['Status'] = t.ticketCheck(log['Username'],log['Ticket'])
+                    log['Status'] = p_check.ticketCheck(log['Username'],log['Ticket'])
 
     elif account == 'Zhibo':
         for log in logList:
             if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
                     print 'Checking '+log['Account']+' '+log['Ticket']
-                    t = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
-                    log['Status'] = t.ticketCheck(log['Username'],log['Ticket'])
+                    log['Status'] = z_check.ticketCheck(log['Username'],log['Ticket'])
 
     elif account == 'Sbo':
         for log in logList:
             if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
                     print 'Checking '+log['Account']+' '+log['Ticket']
-                    t = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
-                    logList['Status'] = t.ticketCheck(log['Username'],logList['Ticket'])
+                    #logList['Status'] = s_check.ticketCheck(log['Username'],logList['Ticket'])
 
     #缓存当前数据
     cache=open('cache.txt','w+')

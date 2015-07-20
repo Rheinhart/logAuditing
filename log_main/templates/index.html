@@ -20,9 +20,20 @@
       <ul class="dropdown-menu">
         <li><a href="#" id="seek_log_old">导入以前log</a></li>
       </ul>
-    </div>
+</div>
+<div class="btn-group"> 
+      <button type="button" class="btn btn-warning" id="login_all">登陆全部账号</button>
+      <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#" id="login_Pinnacle">登陆Pinnacle账号</a></li>
+        <li><a href="#" id="login_Zhibo">登陆Zhibo账号</a></li>
+        <li><a href="#" id="login_Sbo">登陆Sbo账号</a></li>
+      </ul>
+</div> 
 
-    <div class="btn-group"> 
+<div class="btn-group"> 
       <button type="button" class="btn btn-danger" id="check_all">检查全部账单</button>
       <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
         <span class="caret"></span>
@@ -32,8 +43,8 @@
         <li><a href="#" id="check_all_Zhibo">检查Zhibo账单</a></li>
         <li><a href="#" id="check_all_Sbo">检查Sbo账单</a></li>
       </ul>
-    </div>
-<button type="button" class="btn btn-info"  style="width:140px" id="save_log">保存已检查log</button>
+</div>
+<button type="button" class="btn btn-info" id="save_log">保存已检查log</button>
 <hr></hr>
 <hr></hr>
 <div class="alert" id="list_status">
@@ -67,6 +78,40 @@
 <script>
 
     $(document).ready(function(){
+
+      //login 
+      $('#login_all').click(function(){
+        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆全部账号,请稍后'); 
+        
+         $.getJSON('/login/All',function(ret){               
+             $('#list_status').html('<i class="icon-search"></i> 全部账单登陆完毕');    
+          });
+      });
+      $('#login_Pinnacle').click(function(){
+
+        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Pinnacle账号'); 
+               
+        $.getJSON('/login/Pinnacle',function(ret){               
+             $('#list_status').html('<i class="icon-search"></i> Pinnacle成功登陆');    
+        });
+      });
+      $('#login_Zhibo').click(function(){
+
+        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Zhibo账号'); 
+               
+        $.getJSON('/login/Zhibo',function(ret){               
+             $('#list_status').html('<i class="icon-search"></i> Zhibo成功登陆');    
+        });
+      });
+      $('#login_Sbo').click(function(){
+
+        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Sbo账号'); 
+               
+        $.getJSON('/login/Sbo',function(ret){               
+             $('#list_status').html('<i class="icon-search"></i> Sbo成功登陆');    
+        });
+      });
+
 
       //check all
       $('#check_all').click(function(){

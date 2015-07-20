@@ -16,9 +16,7 @@ except ImportError:
 
 
 webInfo=loadAccount('config.ini') #load username and password
-p_check = PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
-z_check = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
-#s_check = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
+p_check=z_check=s_check= '' #pinnacle, Zhibo, Sbo object, global
 
 logList=[] #全局变量, 所有log中是waiting状态的数据解析后都储存在这里
 
@@ -26,6 +24,25 @@ logList=[] #全局变量, 所有log中是waiting状态的数据解析后都储�
 def index(request):
 
     return render(request, 'index.html')
+
+def login(request,account):
+    """login"""
+
+    global p_check, z_check, s_check
+
+    if account == 'All':
+        p_check = PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
+        z_check = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
+        s_check = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
+
+    elif account == 'Pinnacle':
+        p_check=PinnacleCheck(webInfo['Pinnacle_username'],webInfo['Pinnacle_password'])
+    elif account == 'Zhibo':
+        z_check = ZhiboCheck(webInfo['Zhibo_username'],webInfo['Zhibo_password'])
+    elif account == 'Sbo':
+        s_check = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
+
+    return HttpResponse(content_type='application/json')
 
 def ajax_refreshLog(request):
 
@@ -36,8 +53,8 @@ def ajax_refreshLog(request):
     return HttpResponse(json.dumps(logList), content_type='application/json')
 
 def ajax_check(request,num):
-
     """检查账户账单"""
+
     global logList
 
     i= int(num)
@@ -101,8 +118,6 @@ def ajax_checkAll(request, account):
 def ajax_saveLog(request):
     """保存检查过的log文件"""
 
-    global logList
-
     WAITING_STATUS = '\xd7\xb4\xcc\xac:Waiting' #Tag
     logname=datetime.date.today().strftime("%Y-%m-%d")
     newlogfile ='new_logs\\'+logname+'.log'#新log地址
@@ -130,5 +145,5 @@ def ajax_saveLog(request):
     finally:
         log.close()
 
-    return HttpResponse(json.dumps(logList), content_type='application/json')
+    return HttpResponse(content_type='application/json')
 

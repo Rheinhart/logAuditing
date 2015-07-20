@@ -42,7 +42,7 @@ def login(request,account):
     elif account == 'Sbo':
         s_check = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
 
-    return HttpResponse(content_type='application/json')
+    return HttpResponse(json.dumps(logList), content_type='application/json')
 
 def ajax_refreshLog(request):
 
@@ -145,5 +145,5 @@ def ajax_saveLog(request):
     finally:
         log.close()
 
-    return HttpResponse(content_type='application/json')
+    return HttpResponse(json.dumps(logList), content_type='application/json')
 

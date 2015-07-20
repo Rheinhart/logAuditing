@@ -51,8 +51,7 @@ def ajax_check(request,num):
         logList[i]['Status'] = z_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
 
     elif logList[i]['Account']=='Sbo':
-        pass
-        #logList[i]['Status'] = s_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
+        logList[i]['Status'] = s_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
 
     return HttpResponse(json.dumps(logList), content_type='application/json')
 
@@ -70,8 +69,7 @@ def ajax_checkAll(request, account):
                 elif log['Account'] == 'Zhibo':
                     logList['Status'] = z_check.ticketCheck(log['Username'],logList['Ticket'])
                 elif log['Account'] == 'Sbo':
-                    pass
-                    #logList['Status'] = s_check.ticketCheck(log['Username'],logList['Ticket'])
+                    logList['Status'] = s_check.ticketCheck(log['Username'],logList['Ticket'])
 
                 print 'Checking '+log['Account']+' '+log['Ticket']
 
@@ -91,7 +89,7 @@ def ajax_checkAll(request, account):
         for log in logList:
             if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
                     print 'Checking '+log['Account']+' '+log['Ticket']
-                    #logList['Status'] = s_check.ticketCheck(log['Username'],logList['Ticket'])
+                    logList['Status'] = s_check.ticketCheck(log['Username'],logList['Ticket'])
 
     #缓存当前数据
     cache=open('cache.txt','w+')

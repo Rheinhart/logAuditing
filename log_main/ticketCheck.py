@@ -173,13 +173,17 @@ class ZhiboCheck():
     capchapage = "http://isn999.com/managersite/login/captcha"
     loginpage = "http://isn999.com/managersite/login/auth"
     outstandingpage = "http://isn999.com/managersite/betList/outstanding?userCode=%user%&winid=betList"
-    finduserpage = "http://isn999.com/managersite/agentListing/list?_=1436537609675&loginLocale=ZH&parentCode=J102020I01T7&searchStatus=0&searchUserLevel=-1"
+    completedpage = "http://isn999.com/managersite/betList/userCode?userCode=%user%&winid=betList"
+    finduserpage = "http://isn999.com/managersite/agentListing/list?loginLocale=ZH&parentCode=%parentcode%&searchStatus=0&searchUserLevel=-1"
+    reportpage = "http://isn999.com/managersite/winLossReport/agentDetail"
     refererpage = "http://isn999.com/managersite/login/manager?referAction=index"
+    parentcode = ""
 
     def __init__(self,username,password):
         self.web = requests.session()
         self.username = username
         self.password = password
+        self.__login()
 
     def __login(self):
         headerDict = {
@@ -192,7 +196,7 @@ class ZhiboCheck():
         output.close()
         os.startfile("Zhibo_capcha.jpg")
         #cap = antiCapcha.GetCode("capcha.jpg")
-        cap = raw_input("please input the capcha:")
+        cap = raw_input("Enter the Zhibo capcha:")
         #Login
         postDict = {
             'languageSelection':'2',
@@ -205,7 +209,8 @@ class ZhiboCheck():
         j = json.loads(r.text)
         if j.has_key('success'):
             #pass
-            print "Login successful"
+            print "Zhibo Login successful"
+            self.parentcode = r.headers['X-member']
             return True
         elif j.has_key('errors'):
             print j['errors']['reason']
@@ -218,7 +223,7 @@ class ZhiboCheck():
     def __finduser(self,nickname):
         #find the username according to the nickname
         user={"nickname":"","username":""}
-        r = self.web.get(self.finduserpage)
+        r = self.web.get(self.finduserpage.replace("%parentcode%", self.parentcode))
         #print r.content
         soup = BeautifulSoup(r.text)
         my=soup.findAll("td",attrs={"class":"table-icon-cell"})
@@ -234,57 +239,95 @@ class ZhiboCheck():
             return user['username']
 
 
-    def __findticket(self, user, ticket_No):
+    def __findticketOutstanding(self, user, ticket_No):
         # Browse to the user page according to the user given
         r = self.web.get(self.outstandingpage.replace("%user%", user))
         for resp in r.history:
             if resp.status_code != requests.codes.ok:
-                print "User <%s> not found" % user
-                return u'无此用户'
+                print "User <%s> not found (Outstanding)" % user
+                return 0
         soup = BeautifulSoup(r.text)
-        my_table = soup.find('table',id="tblBetList")
+        my_table = soup.find('table', {'id':"tblBetList"})
         rows = my_table.findChildren('tr')
-        # The first row is the header and the last row is a hidden row
-        rows = rows[1:-1]
-        tickets = []
         for row in rows:
-            # Parse the column one by one
-            cells = row.findChildren('td')
-            ticket = {}
-            ticket['id'] = cells[0].text
-            ticket['userid'] = cells[1].text
-            ticket['username'] = cells[2].text
-            # Slice the string to get the required text
-            tmp = str(cells[3])
-            ticket['ticketno'] = tmp[tmp.find(':')+1 : tmp.find('<br/>')]
-            ticket['details'] = cells[4].text
-            tmp = str(cells[5])
-            ticket['odds'] = tmp[tmp.find('>')+1 : tmp.find('<br/>')]
-            tmp = str(cells[6])
-            ticket['amount'] = tmp[tmp.find('>')+1 : tmp.find('<br/>')]
-            tmp = str(cells[7])
-            ticket['status'] = tmp[tmp.find('>')+1 : tmp.find('<br/>')]
-            tickets.append(ticket)
-        # Search the tickets to match the ticket number
-        for t in tickets:
-            if t['ticketno'] == ticket_No:
-                return 'Success'
-        print "Ticket <%s> not found" % ticket_No
-        return u'没有此单'
+            # Search the ticket number over the list
+            if ticket_No in row.text:
+                status = str(row.findChildren('td')[7].text)
+                print status
+                if "Reject" in status:
+                    print "Ticket <%s> has been rejected" % ticket_No
+                    return 2
+                elif "Wait" in status:
+                    print "Ticket <%s> is waiting" % ticket_No
+                    return 3
+                else:
+                    print "Ticket <%s> is successful!" % ticket_No
+                    return 1
+        else:
+            print "Ticket <%s> not found (Outstanding)" % ticket_No
+            return 0
 
+    def __findticketCompleted(self, user, ticket_No):
+        # Get the date range cookies first, over 1 month
+        today = datetime.date.today()
+        startdate = today + datetime.timedelta(days=-30)
+        enddate = today + datetime.timedelta(days=1)
+        postDict = {
+            'fromdate': startdate.strftime('%d/%m/%Y'),
+            'todate': enddate.strftime('%d/%m/%Y'),
+            'dateRangeType': "0"
+        }
+        r = self.web.post(self.reportpage,data=postDict)
+        
+        # Browse to the user page according to the user given
+        r = self.web.get(self.completedpage.replace("%user%", user))
+        for resp in r.history:
+            if resp.status_code != requests.codes.ok:
+                print "User <%s> not found (Completed)" % user
+                return 0
+        soup = BeautifulSoup(r.text)
+        my_table = soup.find('table', {'id':"tblBetList"})
+        rows = my_table.findChildren('tr')
+        for row in rows:
+            # Search the ticket number over the list
+            if ticket_No in row.text:
+                status = str(row.findChildren('td')[7].text)
+                print status
+                if "Reject" in status:
+                    print "Ticket <%s> has been rejected" % ticket_No
+                    return 2
+                elif "Wait" in status:
+                    print "Ticket <%s> is waiting" % ticket_No
+                    return 3
+                else:
+                    print "Ticket <%s> is successful!" % ticket_No
+                    return 1
+        else:
+            print "Ticket <%s> not found (Completed)" % ticket_No
+            return 0
+        
+    def __findticket(self,user,ticket):
+        status = self.__findticketOutstanding(user,ticket)
+        if status == 0:
+            status = self.__findticketCompleted(user,ticket)
+        if status == 0:
+            return u'没有此单'
+        elif status == 1:
+            return u'Success'
+        elif status == 2:
+            return u'此单已划!'   
+        elif status == 3:
+            return u'Waiting'   
+            
     def ticketCheck(self,nickname,ticket):
-
-        r=self.__login()
-        if r:
-            try:
-                user=self.__finduser(nickname)
-                if user:
-                    checkT=self.__findticket(user,ticket)
-                    return checkT
-            except:
-                return False
-
-
+        try:
+            user=self.__finduser(nickname)
+            if user:
+                checkT=self.__findticket(user,ticket)
+                return checkT
+        except:
+            return False
+			
 class SboCheck():
 
     domain = "https://agent.sbobet.com/"
@@ -300,10 +343,10 @@ class SboCheck():
         self.web = requests.session()
         self.username = username
         self.password = password
-        self.login()
+        self.__login()
 
 
-    def login(self):
+    def __login(self):
         headerDict = {
             'Referer': 'Referer: ' + self.refererpage,
         }
@@ -318,7 +361,7 @@ class SboCheck():
             output.write(r.content)
         output.close()
         os.startfile("Sbo_capcha.jpg")
-        print "enter captcha:"
+        print "Enter Sbo captcha:"
         cap = input()
         postDict = {
             'hiduseDesktop':'no',
@@ -348,9 +391,10 @@ class SboCheck():
         welcomepage = self.subdomain + "welcome.aspx"
         #Redirect to the welcome page to get cookies
         r = self.web.get(welcomepage,params=getDict,headers=headerDict)
-        print "Login successful"
+        print "Sbo Login successful"
+        return True
 
-    def getTicket(self, user, ticket_No):
+    def __findticketOutstanding(self, user, ticket_No):
         headerDict = {
             'Referer': 'Referer: ' + self.refererpage,
         }
@@ -370,10 +414,10 @@ class SboCheck():
         #Go to this page to get the list of user sid
         ospage2 = self.subdomain + "webroot/restricted/totalbet2/outstanding_frame_new.aspx"
         r = self.web.post(ospage2,data=postDict,headers=headerDict)
-        SID = self.searchSID(r.text, user)
+        SID = self.__searchSID(r.text, user)
         if SID == None:
-            print "User <%s> not found" % user
-            return None
+            print "User <%s> not found (Outstanding)" % user
+            return 0
         postDict = {
             'ids': SID,
             'ek': myek,
@@ -383,13 +427,83 @@ class SboCheck():
         #Go to this page to get the list of ticket
         ospage3 = self.subdomain + "webroot/restricted/totalbet2/betlist_frame.aspx"
         r = self.web.post(ospage3,data=postDict,headers=headerDict)
-        ticket = self.searchTicket(r.text, ticket_No)
-        if ticket == None:
-            print "Ticket <%s> not found" % ticket_No
+        status = self.__searchTicket(r.text, ticket_No)
+        if status == None:
+            print "Ticket <%s> not found (Outstanding)" % ticket_No
+            return 0
+        elif "Reject" in status:
+            print "Ticket <%s> has been rejected" % ticket_No
+            return 2
+        elif "Wait" in status:
+            print "Ticket <%s> is waiting" % ticket_No
+            return 3
+        else:
+            print "Ticket <%s> is successful!" % ticket_No
+            return 1
+        
+    def __findticketCompleted(self, user, ticket_No):
+        headerDict = {
+            'Referer': 'Referer: ' + self.refererpage,
+        }
+        #Go to this page to get post params requried
+        ospage1 = self.subdomain + "webroot/restricted/report2/winlost.aspx?P=WL"
+        r = self.web.get(ospage1,headers=headerDict)
+        soup = BeautifulSoup(r.text)
+        ##myids = soup.find("input", {"name":"ids"})["value"]
+        myek = soup.find("input", {"name":"ek"})["value"]
+        myp = soup.find("input", {"name":"p"})["value"]
+        mymode = soup.find("input", {"name":"mode"})["value"]
+        postDict = {
+            ##'ids': myids,
+            'ids': "",
+            'ek': myek,
+            'p': myp,
+            'mode': mymode,
+            'dpFrom': '07/01/2015',
+            'dpTo': '07/31/2015',
+            'isSplitGamesAndFinancials': '',
+            'chart': '',
+            'product': '0'
+        }
+        #Go to this page to get the list of user sid
+        ospage2 = self.subdomain + "webroot/restricted/report2/report_frame.aspx"
+        r = self.web.post(ospage2,data=postDict,headers=headerDict)
+        SID = self.__searchSID(r.text, user)
+        if SID == None:
+            print "User <%s> not found" % user
             return None
-        return ticket
+        today = datetime.date.today()
+        startdate = today + datetime.timedelta(days=-30)
+        enddate = today + datetime.timedelta(days=1)
+        postDict = {
+            'ids': SID[1:-1],
+            'ek': myek,
+            'p': myp,
+            'mode': mymode,
+            'dpFrom': startdate.strftime('%m/%d/%Y'),
+            'dpTo': enddate.strftime('%m/%d/%Y'),
+            'isSplitGamesAndFinancials': '1',
+            'chart': '',
+            'product': '0'
+        }
+        #Go to this page to get the list of ticket
+        ospage3 = self.subdomain + "webroot/restricted/report2/betlist_frame.aspx?prod=1"
+        r = self.web.post(ospage3,data=postDict,headers=headerDict)
+        status = self.__searchTicket(r.text, ticket_No)
+        if status == None:
+            print "Ticket <%s> not found (Outstanding)" % ticket_No
+            return 0
+        elif "Reject" in status:
+            print "Ticket <%s> has been rejected" % ticket_No
+            return 2
+        elif "Wait" in status:
+            print "Ticket <%s> is waiting" % ticket_No
+            return 3
+        else:
+            print "Ticket <%s> is successful!" % ticket_No
+            return 1
 
-    def searchSID(self, text, user):
+    def __searchSID(self, text, user):
         #Search User SID (changed everytime) from the user list table
         pos1 = text.find(user)
         #Return -1 if user cannot be found
@@ -400,7 +514,7 @@ class SboCheck():
         SID = text[pos2:pos3]
         return SID
 
-    def searchTicket(self, text, ticket_No):
+    def __searchTicket(self, text, ticket_No):
         #Search ticket info from the ticket list table
         pos1 = text.find(ticket_No)
         #Return -1 if ticket cannot be found
@@ -410,15 +524,29 @@ class SboCheck():
         pos3 = text.find(")", pos2)
         ticketStr = text[pos2:pos3].replace("'",'"')
         rawArray = json.loads(ticketStr)
-        ticket = {
-            "Type" : rawArray[2][3]
-            , "Ratio" : rawArray[10]
-            , "Amount" : rawArray[12]
-            , "Status" : rawArray[14]
-            , "TicketNo" : rawArray[5]
-            , "User" : rawArray[4]
-        }
-        return ticket
+        return rawArray[14]
+        
+    def __findticket(self,user,ticket):
+        status = self.__findticketOutstanding(user,ticket)
+        if status == 0:
+            status = self.__findticketCompleted(user,ticket)
+        if status == 0:
+            return u'没有此单'
+        elif status == 1:
+            return u'Success'
+        elif status == 2:
+            return u'此单已划!'
+        elif status == 3:
+            return u'Waiting'   
+        
+    def ticketCheck(self,nickname,ticket):
+        try:
+            checkT=self.__findticket(nickname,ticket)
+            return checkT
+        except Exception, e:
+            print e
+            return False
+	
 
 def loadAccount(cfile):
     aList={}

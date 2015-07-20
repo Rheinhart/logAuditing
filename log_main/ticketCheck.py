@@ -361,7 +361,7 @@ class SboCheck():
             output.write(r.content)
         output.close()
         os.startfile("Sbo_capcha.jpg")
-        print "Enter Sbo captcha:"
+        print "Enter the Sbo captcha:"
         cap = input()
         postDict = {
             'hiduseDesktop':'no',

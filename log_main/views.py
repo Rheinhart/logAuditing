@@ -65,11 +65,11 @@ def ajax_checkAll(request, account):
         for log in logList:
             if log['Status'] =='Waiting':
                 if log['Account'] == 'Pinnacle':
-                    logList['Status'] = p_check.ticketCheck(log['Username'],logList['Ticket'])
+                    logList['Status'] = p_check.ticketCheck(log['Username'],log['Ticket'])
                 elif log['Account'] == 'Zhibo':
-                    logList['Status'] = z_check.ticketCheck(log['Username'],logList['Ticket'])
+                    logList['Status'] = z_check.ticketCheck(log['Username'],log['Ticket'])
                 elif log['Account'] == 'Sbo':
-                    logList['Status'] = s_check.ticketCheck(log['Username'],logList['Ticket'])
+                    logList['Status'] = s_check.ticketCheck(log['Username'],log['Ticket'])
 
                 print 'Checking '+log['Account']+' '+log['Ticket']
 
@@ -89,7 +89,7 @@ def ajax_checkAll(request, account):
         for log in logList:
             if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
                     print 'Checking '+log['Account']+' '+log['Ticket']
-                    logList['Status'] = s_check.ticketCheck(log['Username'],logList['Ticket'])
+                    logList['Status'] = s_check.ticketCheck(log['Username'],log['Ticket'])
 
     #缓存当前数据
     cache=open('cache.txt','w+')

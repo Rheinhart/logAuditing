@@ -102,7 +102,7 @@ class PinnacleCheck():
             print 'login fail: ', e
             return False
 
-    def __findticket(self,ticket):
+    def __findticket(self,ticket_No):
 
         header = {'Content-Type':'application/x-www-form-urlencoded',
                   'Host':'aaa.pinnaclesports.com',
@@ -114,14 +114,14 @@ class PinnacleCheck():
         findticket_url = 'https://aaa.pinnaclesports.com/AlreadyLoggedIn.aspx'
 
         postData = {'__VIEWSTATE':'/wEPDwULLTEzMDIzODIwMTNkZA==',
-                    'txtTicketNo':ticket,
+                    'txtTicketNo':ticket_No,
                     'LDDL':'en-GB',
                     '__VIEWSTATEGENERATOR':'9461229B'}
 
         try:
             req = self.login_session.post(findticket_url, postData,headers=header)
 
-            ticketinfo_url='https://aaa.pinnaclesports.com/Wagers/SearchTicket/'+str(ticket)
+            ticketinfo_url='https://aaa.pinnaclesports.com/Wagers/SearchTicket/'+ticket_No
             ticketinfo = self.login_session.get(ticketinfo_url)
             tagIsTicket='Trans\.'
             tagHasNo = 'No data to display'
@@ -137,23 +137,22 @@ class PinnacleCheck():
                 hasSuccess = re.findall(tagWin,ticketinfo.content) or re.findall(tagLoss,ticketinfo.content) or re.findall(tagPending,ticketinfo.content)
                 #hasWaiting = re.findall(tagWaiting,ticketinfo.content)
                 if hasNo:
-                      tag = 'no ticket'
+                      print "Ticket <%s> not found!" % ticket_No
                       return u'没有此单'
                 else:
                     if hasRejected:
-                        tag = str(ticket)+' has been rejected!'
+                        print "Ticket <%s> has been rejected!" % ticket_No
                         return u'此单已划!'
                     elif hasSuccess:
-                        tag = str(ticket)+' is Successfu!'
+                        print "Ticket <%s> is successful!" % ticket_No
                         return 'Success'
                     else:
-                        tag = str(ticket)+' is waiting!'
+                        print "Ticket <%s> is waiting!" % ticket_No
                         return 'Waiting'
 
             else:
-                tag = 'not Pinnacle\'s ticket'
+                print "Ticket <%s> not found!" % ticket_No
                 return u'没有此单'
-            print tag
         except Exception, e:
             print e
             return False
@@ -278,7 +277,7 @@ class ZhiboCheck():
             'dateRangeType': "0"
         }
         r = self.web.post(self.reportpage,data=postDict)
-        
+
         # Browse to the user page according to the user given
         r = self.web.get(self.completedpage.replace("%user%", user))
         for resp in r.history:
@@ -305,7 +304,7 @@ class ZhiboCheck():
         else:
             print "Ticket <%s> not found (Completed)" % ticket_No
             return 0
-        
+
     def __findticket(self,user,ticket):
         status = self.__findticketOutstanding(user,ticket)
         if status == 0:
@@ -315,10 +314,10 @@ class ZhiboCheck():
         elif status == 1:
             return u'Success'
         elif status == 2:
-            return u'此单已划!'   
+            return u'此单已划!'
         elif status == 3:
-            return u'Waiting'   
-            
+            return u'Waiting'
+
     def ticketCheck(self,nickname,ticket):
         try:
             user=self.__finduser(nickname)
@@ -327,7 +326,7 @@ class ZhiboCheck():
                 return checkT
         except:
             return False
-			
+
 class SboCheck():
 
     domain = "https://agent.sbobet.com/"
@@ -440,7 +439,7 @@ class SboCheck():
         else:
             print "Ticket <%s> is successful!" % ticket_No
             return 1
-        
+
     def __findticketCompleted(self, user, ticket_No):
         headerDict = {
             'Referer': 'Referer: ' + self.refererpage,
@@ -525,7 +524,7 @@ class SboCheck():
         ticketStr = text[pos2:pos3].replace("'",'"')
         rawArray = json.loads(ticketStr)
         return rawArray[14]
-        
+
     def __findticket(self,user,ticket):
         status = self.__findticketOutstanding(user,ticket)
         if status == 0:
@@ -537,8 +536,8 @@ class SboCheck():
         elif status == 2:
             return u'此单已划!'
         elif status == 3:
-            return u'Waiting'   
-        
+            return u'Waiting'
+
     def ticketCheck(self,nickname,ticket):
         try:
             checkT=self.__findticket(nickname,ticket)
@@ -546,7 +545,7 @@ class SboCheck():
         except Exception, e:
             print e
             return False
-	
+
 
 def loadAccount(cfile):
     aList={}

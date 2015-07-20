@@ -142,8 +142,8 @@ class PinnacleCheck():
                         tag = str(ticket)+' has been rejected!'
                         return u'此单已划!'
                     elif hasSuccess:
-                        tag = str(ticket)+' is waiting!'
-                        return 'Waiting'
+                        tag = str(ticket)+' is Successfu!'
+                        return 'Success'
                     else:
                         tag = str(ticket)+' is waiting!'
                         return 'Waiting'

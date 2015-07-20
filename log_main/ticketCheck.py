@@ -127,12 +127,14 @@ class PinnacleCheck():
             tagHasNo = 'No data to display'
             tagReject ='Rejected'
             tagWaiting = 'Waiting'
-            tagSuccess = 'Success'
+            tagWin = 'Win'
+            tagLoss = 'Loss'
+            tagPending = 'Pending'
             isticket=re.findall(tagIsTicket,ticketinfo.content)
             if isticket:
                 hasNo=re.findall(tagHasNo,ticketinfo.content)
                 hasRejected=re.findall(tagReject,ticketinfo.content)
-                hasSuccess = re.findall(tagSuccess,ticketinfo.content)
+                hasSuccess = re.findall(tagWin,ticketinfo.content) or re.findall(tagLoss,ticketinfo.content) or re.findall(tagPending,ticketinfo.content)
                 #hasWaiting = re.findall(tagWaiting,ticketinfo.content)
                 if hasNo:
                       tag = 'no ticket'

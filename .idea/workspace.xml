@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35f201a9-c542-4e14-834c-8e7e28ba5675" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Zhibo_capcha.jpg" afterPath="$PROJECT_DIR$/Zhibo_capcha.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cache.txt" afterPath="$PROJECT_DIR$/cache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log_main/ticketCheck.py" afterPath="$PROJECT_DIR$/log_main/ticketCheck.py" />
+      <change type="DELETED" beforePath="C:\Users\taoju\OneDrive\HongKong Porject\logAuditing\log_main\logRefresh.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\taoju\OneDrive\HongKong Porject\logAuditing\log_main\ticketCheck.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log_main/views.py" afterPath="$PROJECT_DIR$/log_main/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="1df0cc00-0045-427d-8799-87a239134f9f" name="New changelist" comment="" />
@@ -27,35 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ticketCheck.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.285714">
-              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-              <folding>
-                <element signature="e#24#34#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="logRefresh.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/log_main/logRefresh.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="109" column="23" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="23" />
-              <folding>
-                <element signature="e#24#34#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/log_main/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="45" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.659612">
+              <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
               <folding>
                 <element signature="e#24#60#0" expanded="true" />
               </folding>
@@ -101,8 +77,8 @@
         <option value="$PROJECT_DIR$/logAuditing/urls.py" />
         <option value="$PROJECT_DIR$/log_main/templates/index.html" />
         <option value="$PROJECT_DIR$/log_main/logRefresh.py" />
-        <option value="$PROJECT_DIR$/log_main/views.py" />
         <option value="$PROJECT_DIR$/log_main/ticketCheck.py" />
+        <option value="$PROJECT_DIR$/log_main/views.py" />
       </list>
     </option>
   </component>
@@ -563,7 +539,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437666894953</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log...&#10;refactor: ticketCheck.py 全部按照google推荐命名规范更改">
+      <created>1437667483323</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1437667483323</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TodoView">
@@ -629,7 +611,8 @@
     <MESSAGE value="refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList" />
     <MESSAGE value="refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log..." />
     <MESSAGE value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log..." />
-    <option name="LAST_COMMIT_MESSAGE" value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log..." />
+    <MESSAGE value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log...&#10;refactor: ticketCheck.py 全部按照google推荐命名规范更改" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log...&#10;refactor: ticketCheck.py 全部按照google推荐命名规范更改" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -648,32 +631,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log_main/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding>
             <element signature="e#24#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="362" column="24" selection-start-line="362" selection-start-column="24" selection-end-line="362" selection-end-column="24" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -694,16 +657,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="362" column="24" selection-start-line="362" selection-start-column="24" selection-end-line="362" selection-end-column="24" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -724,16 +677,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -754,16 +697,6 @@
           <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="363" column="24" selection-start-line="363" selection-start-column="24" selection-end-line="363" selection-end-column="24" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -792,16 +725,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="107" column="8" selection-start-line="107" selection-start-column="8" selection-end-line="107" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -839,16 +762,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="137" column="71" selection-start-line="137" selection-start-column="71" selection-end-line="137" selection-end-column="71" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -876,27 +789,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/logRefresh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="107" column="8" selection-start-line="107" selection-start-column="8" selection-end-line="107" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -927,13 +823,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/logRefresh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log_main/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -944,20 +833,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
+    <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="349" column="36" selection-start-line="349" selection-start-column="36" selection-end-line="349" selection-end-column="85" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/logRefresh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="81" column="59" selection-start-line="81" selection-start-column="59" selection-end-line="81" selection-end-column="59" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -968,35 +847,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/logRefresh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="81" column="59" selection-start-line="81" selection-start-column="59" selection-end-line="81" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/logRefresh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="81" column="59" selection-start-line="81" selection-start-column="59" selection-end-line="81" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/logRefresh.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1056,32 +907,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/logRefresh.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="23" selection-start-line="109" selection-start-column="23" selection-end-line="109" selection-end-column="23" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log_main/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="45" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.659612">
+          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
           <folding>
             <element signature="e#24#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/ticketCheck.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.285714">
-          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-          <folding>
-            <element signature="e#24#34#0" expanded="true" />
           </folding>
         </state>
       </provider>

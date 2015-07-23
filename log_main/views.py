@@ -2,8 +2,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse
-from logRefresh import LogRefresh
-from ticketCheck import PinnacleCheck,ZhiboCheck,SboCheck,load_account
+from log_refresh import LogRefresh
+from ticket_check import PinnacleCheck,ZhiboCheck,SboCheck,load_account
 import json
 import cPickle
 import re

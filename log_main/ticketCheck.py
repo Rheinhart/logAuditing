@@ -24,10 +24,10 @@ class PinnacleCheck():
         self.isLogin = False
 
         #automatic login
-        self.__loginmain()
+        self.__login_main()
         self.__kickoff()
 
-    def __loginmain(self):
+    def __login_main(self):
         '''login the main page'''
 
         login_header = {'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -102,7 +102,7 @@ class PinnacleCheck():
             print 'login fail: ', e
             return False
 
-    def __findticket(self,ticket_No):
+    def __find_ticket(self,ticket_No):
 
         header = {'Content-Type':'application/x-www-form-urlencoded',
                   'Host':'aaa.pinnaclesports.com',
@@ -160,7 +160,7 @@ class PinnacleCheck():
     def ticket_check(self,nickname,ticket):
 
         try:
-            checkT=self.__findticket(ticket)
+            checkT=self.__find_ticket(ticket)
             #print checkT
             return checkT
         except:
@@ -219,7 +219,7 @@ class ZhiboCheck():
             #print r.text
             return False
 
-    def __finduser(self,nickname):
+    def __find_user(self,nickname):
         #find the username according to the nickname
         user={"nickname":"","username":""}
         r = self.web.get(self.finduserpage.replace("%parentcode%", self.parentcode))
@@ -238,7 +238,7 @@ class ZhiboCheck():
             return user['username']
 
 
-    def __findticketOutstanding(self, user, ticket_No):
+    def __find_ticket_outstanding(self, user, ticket_No):
         # Browse to the user page according to the user given
         r = self.web.get(self.outstandingpage.replace("%user%", user))
         for resp in r.history:
@@ -266,7 +266,7 @@ class ZhiboCheck():
             print "Ticket <%s> not found (Outstanding)" % ticket_No
             return 0
 
-    def __findticketCompleted(self, user, ticket_No):
+    def __find_ticket_completed(self, user, ticket_No):
         # Get the date range cookies first, over 1 month
         today = datetime.date.today()
         startdate = today + datetime.timedelta(days=-30)
@@ -305,10 +305,10 @@ class ZhiboCheck():
             print "Ticket <%s> not found (Completed)" % ticket_No
             return 0
 
-    def __findticket(self,user,ticket):
-        status = self.__findticketOutstanding(user,ticket)
+    def __find_ticket(self,user,ticket):
+        status = self.__find_ticket_outstanding(user,ticket)
         if status == 0:
-            status = self.__findticketCompleted(user,ticket)
+            status = self.__find_ticket_completed(user,ticket)
         if status == 0:
             return u'没有此单'
         elif status == 1:
@@ -320,9 +320,9 @@ class ZhiboCheck():
 
     def ticket_check(self,nickname,ticket):
         try:
-            user=self.__finduser(nickname)
+            user=self.__find_user(nickname)
             if user:
-                checkT=self.__findticket(user,ticket)
+                checkT=self.__find_ticket(user,ticket)
                 return checkT
         except:
             return False
@@ -393,7 +393,7 @@ class SboCheck():
         print "Sbo Login successful"
         return True
 
-    def __findticketOutstanding(self, user, ticket_No):
+    def __find_ticket_outstanding(self, user, ticket_No):
         headerDict = {
             'Referer': 'Referer: ' + self.refererpage,
         }
@@ -413,7 +413,7 @@ class SboCheck():
         #Go to this page to get the list of user sid
         ospage2 = self.subdomain + "webroot/restricted/totalbet2/outstanding_frame_new.aspx"
         r = self.web.post(ospage2,data=postDict,headers=headerDict)
-        SID = self.__searchSID(r.text, user)
+        SID = self.__search_sid(r.text, user)
         if SID == None:
             print "User <%s> not found (Outstanding)" % user
             return 0
@@ -426,7 +426,7 @@ class SboCheck():
         #Go to this page to get the list of ticket
         ospage3 = self.subdomain + "webroot/restricted/totalbet2/betlist_frame.aspx"
         r = self.web.post(ospage3,data=postDict,headers=headerDict)
-        status = self.__searchTicket(r.text, ticket_No)
+        status = self.__search_ticket(r.text, ticket_No)
         if status == None:
             print "Ticket <%s> not found (Outstanding)" % ticket_No
             return 0
@@ -440,7 +440,7 @@ class SboCheck():
             print "Ticket <%s> is successful!" % ticket_No
             return 1
 
-    def __findticketCompleted(self, user, ticket_No):
+    def __find_ticket_completed(self, user, ticket_No):
         headerDict = {
             'Referer': 'Referer: ' + self.refererpage,
         }
@@ -467,7 +467,7 @@ class SboCheck():
         #Go to this page to get the list of user sid
         ospage2 = self.subdomain + "webroot/restricted/report2/report_frame.aspx"
         r = self.web.post(ospage2,data=postDict,headers=headerDict)
-        SID = self.__searchSID(r.text, user)
+        SID = self.__search_sid(r.text, user)
         if SID == None:
             print "User <%s> not found" % user
             return None
@@ -488,7 +488,7 @@ class SboCheck():
         #Go to this page to get the list of ticket
         ospage3 = self.subdomain + "webroot/restricted/report2/betlist_frame.aspx?prod=1"
         r = self.web.post(ospage3,data=postDict,headers=headerDict)
-        status = self.__searchTicket(r.text, ticket_No)
+        status = self.__search_ticket(r.text, ticket_No)
         if status == None:
             print "Ticket <%s> not found (Outstanding)" % ticket_No
             return 0
@@ -502,7 +502,7 @@ class SboCheck():
             print "Ticket <%s> is successful!" % ticket_No
             return 1
 
-    def __searchSID(self, text, user):
+    def __search_sid(self, text, user):
         #Search User SID (changed everytime) from the user list table
         pos1 = text.find(user)
         #Return -1 if user cannot be found
@@ -513,7 +513,7 @@ class SboCheck():
         SID = text[pos2:pos3]
         return SID
 
-    def __searchTicket(self, text, ticket_No):
+    def __search_ticket(self, text, ticket_No):
         #Search ticket info from the ticket list table
         pos1 = text.find(ticket_No)
         #Return -1 if ticket cannot be found
@@ -525,10 +525,10 @@ class SboCheck():
         rawArray = json.loads(ticketStr)
         return rawArray[14]
 
-    def __findticket(self,user,ticket):
-        status = self.__findticketOutstanding(user,ticket)
+    def __find_ticket(self,user,ticket):
+        status = self.__find_ticket_outstanding(user,ticket)
         if status == 0:
-            status = self.__findticketCompleted(user,ticket)
+            status = self.__find_ticket_completed(user,ticket)
         if status == 0:
             return u'没有此单'
         elif status == 1:
@@ -540,7 +540,7 @@ class SboCheck():
 
     def ticket_check(self,nickname,ticket):
         try:
-            checkT=self.__findticket(nickname,ticket)
+            checkT=self.__find_ticket(nickname,ticket)
             return checkT
         except Exception, e:
             print e

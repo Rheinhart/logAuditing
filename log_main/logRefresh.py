@@ -1,22 +1,16 @@
 # -*- coding: utf-8 -*-
 import sys
 import re
-import requests
 import os
-import time
 import datetime
 ######
 reload(sys)
 ######
 
-log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+u'\\负打负7-1'+'\\logs\\'
-#log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+'\\logs\\'
-print log_path
-
-
-class logRefresh():
+class LogRefresh():
     """读取log文件并解析,返回数据到self.loglist"""
-
+    log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+u'\\负打负7-1'+'\\logs\\'
+    print log_path
     loglist = []
 
     def __init__(self):
@@ -52,7 +46,7 @@ class logRefresh():
         DEAL_HOME = '\xd6\xf7\xb6\xd3' #成交 主队
         DEAL_GUEST = '\xbf\xcd\xb6\xd3' #成交 客队
         TICKET = '\xb5\xa5\xba\xc5:'  # ticket id line[3]
-        logfile = log_path + logname + '.log'
+        logfile = self.log_path + logname + '.log'
         tflag = True  # to judge if the ticket already in the list
         try:
             log = open(logfile, 'r')
@@ -113,7 +107,7 @@ class logRefresh():
         finally:
             log.close()
 
-    def logCheck(self):
+    def log_check(self):
 
         print 'Checking:' + self.date
         self.__logcheck(self.date, self.loglist)

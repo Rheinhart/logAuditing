@@ -117,7 +117,7 @@
       $('#check_all').click(function(){
         $('#list_status').html('<i class="icon-refresh"></i> 正在检查全部账单,请稍后'); 
         
-         $.getJSON('/ajax_checkall/All',function(ret){               
+         $.getJSON('/ajax_check_all/All',function(ret){
              $('#list_status').html('<i class="icon-search"></i> 全部账单检查完毕');    
           });
       });
@@ -126,7 +126,7 @@
 
         $('#list_status').html('<i class="icon-refresh"></i> 检查全部Pinnacle账单:'); 
                
-        $.getJSON('/ajax_checkall/Pinnacle',function(ret){               
+        $.getJSON('/ajax_check_all/Pinnacle',function(ret){
              $('#list_status').html('<i class="icon-search"></i> 全部Pinnacle账单检查完毕');    
         });
       });
@@ -134,7 +134,7 @@
 
         $('#list_status').html('<i class="icon-refresh"></i> 检查全部Zhibo账单:'); 
                
-        $.getJSON('/ajax_checkall/Zhibo',function(ret){               
+        $.getJSON('/ajax_check_all/Zhibo',function(ret){
              $('#list_status').html('<i class="icon-search"></i> 全部Zhibo账单检查完毕');    
         });
       });
@@ -142,7 +142,7 @@
 
         $('#list_status').html('<i class="icon-refresh"></i> 检查全部Sbo账单:'); 
                
-        $.getJSON('/ajax_checkall/Sbo',function(ret){               
+        $.getJSON('/ajax_check_all/Sbo',function(ret){
              $('#list_status').html('<i class="icon-search"></i> 全部Sbo账单检查完毕');    
         });
       });
@@ -151,15 +151,15 @@
       $('#save_log').click(function(){
         $('#list_status').html('<i class="icon-refresh"></i> 正在保存当前log数据,请稍后');
         
-         $.getJSON('/ajax_saveLog',function(ret){               
+         $.getJSON('/ajax_save_log',function(ret){
              $('#list_status').html('<i class="icon-search"></i> 最新log数据保存完毕');    
           });
       });           
 
-      // 列表 list
+      // 列表 refreh list
       $('#seek_log').click(function(){
           $('#logtable_body').empty();
-              $.getJSON('/ajax_refreshLog/',function(ret){
+              $.getJSON('/ajax_refresh_log/',function(ret){
                     //返回值 ret 在这里是一个列表
                     $.each(ret, function(index, item){
                       var i=ret.length-index-1;//倒序排列显示
@@ -205,7 +205,7 @@
 
           setInterval(function() {
               $('#logtable_body').empty();
-              $.getJSON('/ajax_refreshLog/',function(ret){
+              $.getJSON('/ajax_refresh_log/',function(ret){
                     //返回值 ret 在这里是一个列表
                     $.each(ret, function(index, item){
                        var i=ret.length-index-1;
@@ -253,7 +253,7 @@
              
         //   $('#list_status').html(' <span class="glyphicon glyphicon-search"></span> 正在自动检查全部账单,请稍后'); 
         
-        //   $.getJSON('/ajax_checkall/',function(ret){               
+        //   $.getJSON('/ajax_check_all/',function(ret){
         //      $('#list_status').html(' <span class="glyphicon glyphicon-search"></span> 全部账单检查完毕');    
         //   }); 
         //   }, 30000);

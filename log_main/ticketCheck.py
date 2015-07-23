@@ -538,7 +538,7 @@ class SboCheck():
         elif status == 3:
             return u'Waiting'
 
-    def ticketCheck(self,nickname,ticket):
+    def ticket_check(self,nickname,ticket):
         try:
             checkT=self.__findticket(nickname,ticket)
             return checkT
@@ -547,7 +547,7 @@ class SboCheck():
             return False
 
 
-def loadAccount(cfile):
+def load_account(cfile):
     """read the login info from config.ini"""
     userList={}
     try:

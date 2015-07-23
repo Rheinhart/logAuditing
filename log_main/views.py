@@ -10,9 +10,9 @@ import re
 import os
 import datetime
 
-webInfo = load_account('config.ini')     #load username and password
-p_check = z_check = s_check = ''           #pinnacle, Zhibo, Sbo object, global
-LOG_LIST = []                            #global, 所有log中是waiting状态的数据解析后都储存在这里
+webInfo = load_account('config.ini')       # load username and password
+p_check = z_check = s_check = ''           # pinnacle, Zhibo, Sbo object, global
+LOG_LIST = []                              # global, 所有log中是waiting状态的数据解析后都储存在这里
 
 
 def index(request):

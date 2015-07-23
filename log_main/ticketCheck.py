@@ -548,17 +548,18 @@ class SboCheck():
 
 
 def loadAccount(cfile):
-    aList={}
+    """read the login info from config.ini"""
+    userList={}
     try:
         config=ConfigParser.SafeConfigParser()
         config.read(cfile)
-        aList['Pinnacle_username'] = config.get('Pinnacle','Username')
-        aList['Pinnacle_password'] = config.get('Pinnacle','Password')
-        aList['Zhibo_username'] = config.get('Zhibo','Username')
-        aList['Zhibo_password'] = config.get('Zhibo','Password')
-        aList['Sbo_username'] = config.get('Sbo','Username')
-        aList['Sbo_password'] = config.get('Sbo','Password')
-        return aList
+        userList['Pinnacle_username'] = config.get('Pinnacle','Username')
+        userList['Pinnacle_password'] = config.get('Pinnacle','Password')
+        userList['Zhibo_username'] = config.get('Zhibo','Username')
+        userList['Zhibo_password'] = config.get('Zhibo','Password')
+        userList['Sbo_username'] = config.get('Sbo','Username')
+        userList['Sbo_password'] = config.get('Sbo','Password')
+        return userList
     except Exception, e:
         print 'read config.ini error'
         return False

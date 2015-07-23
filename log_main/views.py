@@ -4,21 +4,17 @@ from django.shortcuts import render
 from logRefresh import *
 from ticketCheck import PinnacleCheck,ZhiboCheck,SboCheck,loadAccount
 from bs4 import BeautifulSoup
+from django.http import JsonResponse
 #from antiCapcha import *
 import json
 import cPickle
 import ConfigParser
 
-try:
-    from django.http import JsonResponse
-except ImportError:
-    from .tool import JsonResponse
-
 
 webInfo=loadAccount('config.ini') #load username and password
 p_check=z_check=s_check= '' #pinnacle, Zhibo, Sbo object, global
 
-logList=[] #全局变量, 所有log中是waiting状态的数据解析后都储存在这里
+LOGLIST=[] #全局变量, 所有log中是waiting状态的数据解析后都储存在这里
 
 
 def index(request):
@@ -42,78 +38,78 @@ def login(request,account):
     elif account == 'Sbo':
         s_check = SboCheck(webInfo['Sbo_username'],webInfo['Sbo_password'])
 
-    return HttpResponse(json.dumps(logList), content_type='application/json')
+    return HttpResponse(json.dumps(LOGLIST), content_type='application/json')
 
 def ajax_refreshLog(request):
 
-    global logList
+    global LOGLIST
 
     lRefresh = logRefresh()
-    logList=lRefresh.logCheck()
-    return HttpResponse(json.dumps(logList), content_type='application/json')
+    LOGLIST=lRefresh.logCheck()
+    return HttpResponse(json.dumps(LOGLIST), content_type='application/json')
 
 def ajax_check(request,num):
     """检查账户账单"""
 
-    global logList
+    global LOGLIST
 
     i= int(num)
 
     #to find the account in the logList
 
-    if logList[i]['Account']=='Pinnacle':
-        logList[i]['Status'] = p_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
+    if LOGLIST[i]['Account']=='Pinnacle':
+        LOGLIST[i]['Status'] = p_check.ticketCheck(LOGLIST[i]['Username'],LOGLIST[i]['Ticket'])
 
-    elif logList[i]['Account']=='Zhibo':
-        logList[i]['Status'] = z_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
+    elif LOGLIST[i]['Account']=='Zhibo':
+        LOGLIST[i]['Status'] = z_check.ticketCheck(LOGLIST[i]['Username'],LOGLIST[i]['Ticket'])
 
-    elif logList[i]['Account']=='Sbo':
-        logList[i]['Status'] = s_check.ticketCheck(logList[i]['Username'],logList[i]['Ticket'])
+    elif LOGLIST[i]['Account']=='Sbo':
+        LOGLIST[i]['Status'] = s_check.ticketCheck(LOGLIST[i]['Username'],LOGLIST[i]['Ticket'])
 
-    return HttpResponse(json.dumps(logList), content_type='application/json')
+    return HttpResponse(json.dumps(LOGLIST), content_type='application/json')
 
 
 def ajax_checkAll(request, account):
     """检查所有账户账单"""
 
-    global logList
+    global LOGLIST
 
     if account == 'All':
-        for log in logList:
+        for log in LOGLIST:
             if log['Status'] =='Waiting':
                 if log['Account'] == 'Pinnacle':
-                    logList['Status'] = p_check.ticketCheck(log['Username'],log['Ticket'])
+                    LOGLIST['Status'] = p_check.ticketCheck(log['Username'],log['Ticket'])
                 elif log['Account'] == 'Zhibo':
-                    logList['Status'] = z_check.ticketCheck(log['Username'],log['Ticket'])
+                    LOGLIST['Status'] = z_check.ticketCheck(log['Username'],log['Ticket'])
                 elif log['Account'] == 'Sbo':
-                    logList['Status'] = s_check.ticketCheck(log['Username'],log['Ticket'])
+                    LOGLIST['Status'] = s_check.ticketCheck(log['Username'],log['Ticket'])
 
                 print 'Checking '+log['Account']+' '+log['Ticket']
 
     elif account == 'Pinnacle':
-        for log in logList:
+        for log in LOGLIST:
             if log['Status'] == 'Waiting' and log['Account'] == 'Pinnacle':
                     print 'Checking '+log['Account']+' '+log['Ticket']
                     log['Status'] = p_check.ticketCheck(log['Username'],log['Ticket'])
 
     elif account == 'Zhibo':
-        for log in logList:
+        for log in LOGLIST:
             if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
                     print 'Checking '+log['Account']+' '+log['Ticket']
                     log['Status'] = z_check.ticketCheck(log['Username'],log['Ticket'])
 
     elif account == 'Sbo':
-        for log in logList:
+        for log in LOGLIST:
             if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
                     print 'Checking '+log['Account']+' '+log['Ticket']
-                    logList['Status'] = s_check.ticketCheck(log['Username'],log['Ticket'])
+                    LOGLIST['Status'] = s_check.ticketCheck(log['Username'],log['Ticket'])
 
     #缓存当前数据
     cache=open('cache.txt','w+')
-    cPickle.dump(logList, cache)
+    cPickle.dump(LOGLIST, cache)
     cache.close()
 
-    return HttpResponse(json.dumps(logList), content_type='application/json')
+    return HttpResponse(json.dumps(LOGLIST), content_type='application/json')
 
 def ajax_saveLog(request):
     """保存检查过的log文件"""
@@ -131,7 +127,7 @@ def ajax_saveLog(request):
             line = line.split()
             if WAITING_STATUS in line:
                 ticket = re.findall("\xb5\xa5\xba\xc5:(.*)",line[5])[0] #paser ticket
-                for logline in logList:
+                for logline in LOGLIST:
                     if ticket == logline['Ticket']:
                         NEWSTATUS = (u'状态:').encode('gb2312')+logline['Status'].encode('gb2312')
                         line[6]=line[6].replace(WAITING_STATUS,NEWSTATUS)
@@ -145,5 +141,5 @@ def ajax_saveLog(request):
     finally:
         log.close()
 
-    return HttpResponse(json.dumps(logList), content_type='application/json')
+    return HttpResponse(json.dumps(LOGLIST), content_type='application/json')
 

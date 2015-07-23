@@ -12,11 +12,12 @@ reload(sys)
 log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+u'\\负打负7-1'+'\\logs\\'
 #log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+'\\logs\\'
 print log_path
-rlist = []
+
 
 class logRefresh():
+    """读取log文件并解析,返回数据到self.loglist"""
 
-    """读取log文件并解析,返回数据到rlist"""
+    loglist = []
 
     def __init__(self):
 
@@ -115,13 +116,5 @@ class logRefresh():
     def logCheck(self):
 
         print 'Checking:' + self.date
-        self.__logcheck(self.date, rlist)
-        return rlist
-
-
-if __name__ == "__main__":
-
-    waiting_list = []
-    lRefresh = logRefresh()
-    waiting_list = lRefresh.logCheck()
-    #print waiting_list
+        self.__logcheck(self.date, self.loglist)
+        return self.loglist

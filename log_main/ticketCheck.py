@@ -157,7 +157,7 @@ class PinnacleCheck():
             print e
             return False
 
-    def ticketCheck(self,nickname,ticket):
+    def ticket_check(self,nickname,ticket):
 
         try:
             checkT=self.__findticket(ticket)
@@ -318,7 +318,7 @@ class ZhiboCheck():
         elif status == 3:
             return u'Waiting'
 
-    def ticketCheck(self,nickname,ticket):
+    def ticket_check(self,nickname,ticket):
         try:
             user=self.__finduser(nickname)
             if user:

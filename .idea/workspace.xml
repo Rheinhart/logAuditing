@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35f201a9-c542-4e14-834c-8e7e28ba5675" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\taoju\OneDrive\HongKong Porject\logAuditing\log_main\logRefresh.py" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\taoju\OneDrive\HongKong Porject\logAuditing\log_main\ticketCheck.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log_main/views.py" afterPath="$PROJECT_DIR$/log_main/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.txt" afterPath="$PROJECT_DIR$/readme.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="1df0cc00-0045-427d-8799-87a239134f9f" name="New changelist" comment="" />
@@ -27,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/log_main/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.659612">
-              <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="38" />
               <folding>
                 <element signature="e#24#60#0" expanded="true" />
               </folding>
@@ -39,10 +37,30 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ticket_check.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/log_main/ticket_check.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="329" column="21" selection-start-line="329" selection-start-column="21" selection-end-line="329" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="log_refresh.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/log_main/log_refresh.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.3945577">
+              <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-17.741936">
               <caret line="164" column="8" selection-start-line="164" selection-start-column="8" selection-end-line="164" selection-end-column="8" />
               <folding />
             </state>
@@ -79,6 +97,8 @@
         <option value="$PROJECT_DIR$/log_main/logRefresh.py" />
         <option value="$PROJECT_DIR$/log_main/ticketCheck.py" />
         <option value="$PROJECT_DIR$/log_main/views.py" />
+        <option value="$PROJECT_DIR$/log_main/ticket_check.py" />
+        <option value="$PROJECT_DIR$/log_main/log_refresh.py" />
       </list>
     </option>
   </component>
@@ -215,7 +235,7 @@
       </console-settings>
     </option>
   </component>
-  <component name="RunManager" selected="Python.logRefresh">
+  <component name="RunManager" selected="Python.ticket_check">
     <configuration default="false" name="logRefresh" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -246,6 +266,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="logAuditing" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/log_main/ticketCheck.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ticket_check" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/log_main" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="logAuditing" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/log_main/ticket_check.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -372,14 +409,16 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.logRefresh" />
       <item index="1" class="java.lang.String" itemvalue="Python.ticketCheck" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ticket_check" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.logRefresh" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ticketCheck" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.ticket_check" />
+        <item index="1" class="java.lang.String" itemvalue="Python.logRefresh" />
+        <item index="2" class="java.lang.String" itemvalue="Python.ticketCheck" />
       </list>
     </recent_temporary>
   </component>
@@ -545,7 +584,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437667483323</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log...&#10;refactor: ticketCheck.py 全部按照google推荐命名规范更改&#10;refactor: 规范模块名称 ticketCheck-&gt;ticket_check...">
+      <created>1437667760831</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1437667760831</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TodoView">
@@ -561,25 +606,25 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13343883" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.4978903" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295964" sideWeight="0.53586495" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30605382" sideWeight="0.5042194" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.46413502" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.015695067" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30605382" sideWeight="0.4957806" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13343883" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.46413502" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27808988" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39910313" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30605382" sideWeight="0.4978903" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27808988" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -612,7 +657,8 @@
     <MESSAGE value="refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log..." />
     <MESSAGE value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log..." />
     <MESSAGE value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log...&#10;refactor: ticketCheck.py 全部按照google推荐命名规范更改" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log...&#10;refactor: ticketCheck.py 全部按照google推荐命名规范更改" />
+    <MESSAGE value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log...&#10;refactor: ticketCheck.py 全部按照google推荐命名规范更改&#10;refactor: 规范模块名称 ticketCheck-&gt;ticket_check..." />
+    <option name="LAST_COMMIT_MESSAGE" value="添加self.status&#10;&#10;refactor: global rlist-&gt;class logRefresh: self.loglist&#10;refactor: loadAccount: aList-&gt;userList&#10;refactor: ticketCheck-&gt;ticket_check&#10;refactor: func name-&gt;low, Class name -&gt;upper&#10;refactor: url.py, index.html: ajax_refreshLog-&gt;ajax_refresh_log...&#10;refactor: ticketCheck.py 全部按照google推荐命名规范更改&#10;refactor: 规范模块名称 ticketCheck-&gt;ticket_check..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -889,6 +935,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.741936">
+          <caret line="164" column="8" selection-start-line="164" selection-start-column="8" selection-end-line="164" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/logAuditing/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -899,21 +953,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/log_main/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="164" column="8" selection-start-line="164" selection-start-column="8" selection-end-line="164" selection-end-column="8" />
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="38" />
+          <folding>
+            <element signature="e#24#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log_main/ticket_check.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="329" column="21" selection-start-line="329" selection-start-column="21" selection-end-line="329" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/views.py">
+    <entry file="file://$PROJECT_DIR$/log_main/log_refresh.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.659612">
-          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
-          <folding>
-            <element signature="e#24#60#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-2.3945577">
+          <caret line="9" column="23" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>

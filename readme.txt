@@ -17,3 +17,5 @@
 8. log文件目录保存在 logAuditing\log_main\logRefresh.py 中！
 
 9. 注意, Sbo ip异常登录时候需要上网站输入安全码,之后不再需要
+
+10. log文件依旧存在Bug, Waring 收入后没有加冒号":",如果更正此Bug务必在log_main\log_refresh.py中更正相应regex

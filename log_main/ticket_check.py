@@ -3,7 +3,6 @@ import sys
 import re
 import requests
 import os
-import time
 import datetime
 import ConfigParser
 from bs4 import BeautifulSoup
@@ -244,7 +243,6 @@ class ZhiboCheck(object):
 
         if not user['username']:
             print "<%s> has no corresponding username" % nickname
-            return False
 
     def __search_user_from_cache(self,nickname):
         # to search the username from the zhibo_dict.ini
@@ -292,6 +290,7 @@ class ZhiboCheck(object):
     #     return False
 
     def __find_ticket_outstanding(self, user, ticket_No):
+        print "Finding ticket <%s>" % ticket_No
         # Browse to the user page according to the user given
         r = self.web.get(self.outstandingpage.replace("%user%", user))
         if not r:
@@ -335,7 +334,6 @@ class ZhiboCheck(object):
             'dateRangeType': "0"
         }
         r = self.web.post(self.reportpage, data=postDict)
-
         # Browse to the user page according to the user given
         r = self.web.get(self.completedpage.replace("%user%", user))
         for resp in r.history:
@@ -378,10 +376,13 @@ class ZhiboCheck(object):
             return u'Waiting'
 
     def ticket_check(self, nickname, ticket):
+
         try:
             user = self.__find_user(nickname)
             if user:
                 return self.__find_ticket(user, ticket)
+            else:
+                return u'用户不存在,请重新登录查询'
         except Exception:
             print 'Ticket Check Error!'
             return False

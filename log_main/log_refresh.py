@@ -3,13 +3,17 @@ import sys
 import re
 import os
 import datetime
+import ConfigParser
 ######
 reload(sys)
 ######
 
 class LogRefresh(object):
     """读取log文件并解析,返回数据到self.loglist"""
-    log_path = os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+u'\\负打负7-1'+'\\logs\\'
+
+    config = ConfigParser.SafeConfigParser()
+    config.read('config.ini')
+    log_path=os.path.abspath(os.path.join(os.path.dirname("__file__"),os.path.pardir))+config.get('Path', 'Logpath')
     print log_path
     loglist = []
 

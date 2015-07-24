@@ -14,7 +14,7 @@
 
 7. logAuditing\log_main\view.py 以及其他ticketCheck.py, logRefresh.py文件 负责后端逻辑处理, logAuditing\log_main\templates\index.html 生成网页模板, urls.py 模板内网址和后端函数对应,参见django文档和教程
 
-8. log文件目录保存在 logAuditing\log_main\logRefresh.py 中！
+8. log相对文件目录保存在 config.ini 中！
 
 9. 注意, Sbo ip异常登录时候需要上网站输入安全码,之后不再需要
 

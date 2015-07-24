@@ -594,10 +594,3 @@ def load_account(cfile):
     except Exception, e:
         print 'Read config.ini error'
         return False
-
-
-if __name__ == '__main__':
-    #test_z_check = ZhiboCheck('j1020909c100sub02', 'chen88131')
-    test_z_check = ZhiboCheck('j102020i01t7sub00', 'aaa111')
-    print test_z_check.ticket_check('yanjiang02', '1507031409013567')
-

@@ -225,41 +225,71 @@ class ZhiboCheck(object):
     def __find_user(self, nickname):
         # find the username according to the nickname
 
-        user = {"nickname": "", "username": ""}
-        r = self.web.get(self.finduserpage.replace("%parentcode%", self.parentcode))
-        soup = BeautifulSoup(r.text)
-        my_users = soup.findAll("td", attrs={"class": "table-icon-cell"})
-        for item in my_users:
-            user['nickname'] = re.findall(r'\bdata\-detail=\"[0-9a-zA-Z]*\-[0-9a-zA-Z]*\-(.*)\"\sonclick', str(item))[0]
-            if user['nickname'] == nickname:
-                user['username'] = re.findall(r'data\-detail=\"(.*)\-[0-9a-zA-Z]*\-[0-9a-zA-Z]*', str(item))[0]
-                print "username <%s> found" % user['username']
-                return user['username']
+        user = self.__search_user_from_cache(nickname)
+        if user:
+            print "username <%s> found" % user['username']
+            return user['username']
+        else:
+            user = {'nickname':'', 'username':''}
+            r = self.web.get(self.finduserpage.replace("%parentcode%", self.parentcode))
+            soup = BeautifulSoup(r.text)
+            my_users = soup.findAll("td", attrs={"class": "table-icon-cell"})
+            for item in my_users:
+                user['nickname'] = \
+                    re.findall(r'\bdata\-detail=\"[0-9a-zA-Z]*\-[0-9a-zA-Z]*\-(.*)\"\sonclick', str(item))[0]
+                if user['nickname'] == nickname:
+                    user['username'] = re.findall(r'data\-detail=\"(.*)\-[0-9a-zA-Z]*\-[0-9a-zA-Z]*', str(item))[0]
+                    print "username <%s> found" % user['username']
+                    return user['username']
 
         if not user['username']:
             print "<%s> has no corresponding username" % nickname
             return False
 
-    def __find_user_lack_permission(self, nickname):
-        # another way to find the corresponding username due to the lack of permission
+    def __search_user_from_cache(self,nickname):
+        # to search the username from the zhibo_dict.ini
 
-        user = {"nickname": "", "username": ""}
+        webInfo = load_account('config.ini')
+        user = {'nickname': '', 'username': ''}
+        user_dict = []
+        try:
+            config = ConfigParser.SafeConfigParser()
+            config.read('zhibo_dict.ini')
+            user_dict = config.items(webInfo['Zhibo_username'])
+            for (k, v) in user_dict:
+                if v == nickname:
+                    user['nickname'] = v
+                    user['username'] = k.upper()
+                    return user
+        except Exception, e:
+            print 'Read zhibo_dict.ini error'
+            return False
 
-        today = datetime.date.today()
-        range_days = 3    #find 30 days list, no more than 3 times, otherwise post wrong!
-        for i in range(range_days):
-            day = today + datetime.timedelta(days=-i)
-            print 'Searching username on %s' % day.strftime('%d/%m/%Y')
-            r = self.web.post(self.finduserpage_no_permission.replace('%today%', day.strftime('%d/%m/%Y')))
-            soup = BeautifulSoup(r.text)
-            user_list = soup.findAll("td", attrs={"class": "bet-list-text"})
-            for i in range(len(user_list)):
-                if nickname in user_list[i]:
-                    user['nickname'] = nickname
-                    user['username'] = user_list[i-1].get_text()
-                    print "username <%s> found" % user['username']
-                    return user['username']
-        return False
+    # def __find_user_lack_permission(self, nickname):
+    #     # another way to find the corresponding username due to the lack of permission
+    #     user = {"nickname": "", "username": ""}
+    #     today = datetime.date.today()
+    #     range_days = 30  # find 30 days list, no more than 3 times, otherwise post wrong!
+    #     for i in range(range_days):
+    #         day = today + datetime.timedelta(days=-i)
+    #         print 'Searching username on %s' % day.strftime('%d/%m/%Y')
+    #         r = self.web.post(self.finduserpage_no_permission.replace('%today%', day.strftime('%d/%m/%Y')))
+    #         soup = BeautifulSoup(r.text)
+    #         user_list = soup.findAll("td", attrs={"class": "bet-list-text"})
+    #         # with open('zhibo_list.ini', 'a+') as zb:
+    #         #    for item in user_list:
+    #         #        if item:
+    #         #            print item.get_text()
+    #         #            zb.writelines(item.get_text()+'\n')
+    #         # zb.close()
+    #
+    #         for i in range(len(user_list)):
+    #             if nickname in user_list[i]:
+    #                 user['nickname'] = nickname
+    #                 user['username'] = user_list[i - 1].get_text()
+    #                 print "username <%s> found" % user['username']
+    #                 return user['username']
+    #     return False
 
     def __find_ticket_outstanding(self, user, ticket_No):
         # Browse to the user page according to the user given
@@ -295,9 +325,9 @@ class ZhiboCheck(object):
     def __find_ticket_completed(self, user, ticket_No):
         # Get the date range cookies first, over 1 month
         today = datetime.date.today()
-        #print today
+        # print today
         startdate = today + datetime.timedelta(days=-30)
-        #print startdate
+        # print startdate
         enddate = today + datetime.timedelta(days=1)
         postDict = {
             'fromdate': startdate.strftime('%d/%m/%Y'),
@@ -349,14 +379,11 @@ class ZhiboCheck(object):
 
     def ticket_check(self, nickname, ticket):
         try:
-            user = self.__find_user_lack_permission(nickname)
-            if not user:
-                user = self.__find_user(nickname)
+            user = self.__find_user(nickname)
             if user:
-                checkT = self.__find_ticket(user, ticket)
-                return checkT
+                return self.__find_ticket(user, ticket)
         except Exception:
-            print 'error!'
+            print 'Ticket Check Error!'
             return False
 
 
@@ -594,10 +621,3 @@ def load_account(cfile):
     except Exception, e:
         print 'Read config.ini error'
         return False
-
-
-if __name__ == '__main__':
-    #test_z_check = ZhiboCheck('j1020909c100sub02', 'chen88131')
-    test_z_check = ZhiboCheck('j102020i01t7sub00', 'aaa111')
-    print test_z_check.ticket_check('yanjiang02', '1507031409013567')
-

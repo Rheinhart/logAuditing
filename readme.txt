@@ -18,4 +18,11 @@
 
 9. 注意, Sbo ip异常登录时候需要上网站输入安全码,之后不再需要
 
-10. log文件依旧存在Bug, Waring 收入后没有加冒号":",如果更正此Bug务必在log_main\log_refresh.py中更正相应regex
+10. Zhibo nickname和username对应list预先保存在zhibo_dict.ini中！
+
+未完全解决Bug:
+1. log文件依旧存在Bug, Waring 收入后没有加冒号":",如果更正此Bug务必在log_main\log_refresh.py中更正相应regex
+
+2. Zhibo 查询用户不存在或者多次查询往日账单输赢记录, session会掉,必须重新登陆！ 比如当日log中有两个Zhibo 代理账号, 查询用户失败后,需要切换登陆,否则无法正确查询zhibo其他账单
+
+3. 组号只对成对投注的log记录生效,如果三个网站为一组需要修改,不影响查询。

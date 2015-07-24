@@ -46,7 +46,7 @@ S'KuPS <> Inter Turku'
 p24
 sS'Date'
 p25
-S'2015-07-23'
+S'2015-07-25'
 p26
 sS'Ticket'
 p27
@@ -256,7 +256,7 @@ S'1.0101'
 p88
 sa(dp89
 g3
-S'sos002'
+S'sob002'
 p90
 sg5
 S'Zhibo'

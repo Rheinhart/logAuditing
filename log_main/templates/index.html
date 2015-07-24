@@ -54,6 +54,7 @@
 <table class="table table-striped table-bordered" id="logtable">
   <thead>
       <tr>
+          <th>组</th>
           <th>检查</th>
           <th>时间</th>
           <th>单号</th>
@@ -163,8 +164,10 @@
                     //返回值 ret 在这里是一个列表
                     $.each(ret, function(index, item){
                       var i=ret.length-index-1;//倒序排列显示
-                       $('#logtable_body').append(
-                        "<tr id='test'>"+"<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+                        
+                      if(i%2==0){
+                        $('#logtable_body').append(
+                        "<tr id='group'>"+"<td>"+(i/2+1)+"</td>"+
+                        "<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+
                         "<td>"+ret[i]['Time']+"</td>"+
                         "<td>"+ret[i]['Ticket']+"</td>"+
                         "<td id='status_"+i+"'>"+ret[i]['Status']+"</td>"+
@@ -178,6 +181,25 @@
                         "<td>"+ret[i]['Odd']+"</td>"+
                         "<td>"+ret[i]['Amount']+"</td>"+
                         "<td>"+ret[i]['Balance']+"</td></tr>")
+                       }
+                       else{
+                        $('#logtable_body').append(
+                        "<tr id='group'>"+"<td>"+(i+1)/2+"</td>"+
+                        "<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+
+                        "<td>"+ret[i]['Time']+"</td>"+
+                        "<td>"+ret[i]['Ticket']+"</td>"+
+                        "<td id='status_"+i+"'>"+ret[i]['Status']+"</td>"+
+                        "<td>"+ret[i]['Account']+"</td>"+
+                        "<td>"+ret[i]['Username']+"</td>"+
+                        "<td>"+ret[i]['Income']+"</td>"+
+                        "<td>"+ret[i]['Game']+"</td>"+
+                        "<td>"+ret[i]['Score']+"</td>"+
+                        "<td>"+ret[i]['Waterlevel']+"</td>"+
+                        "<td>"+ret[i]['Deal']+"</td>"+
+                        "<td>"+ret[i]['Odd']+"</td>"+
+                        "<td>"+ret[i]['Amount']+"</td>"+
+                        "<td>"+ret[i]['Balance']+"</td></tr>")
+                       }
 
                         $('#status_'+i).css("background","CornflowerBlue")
 
@@ -194,10 +216,11 @@
 
 
                         $('#refresh_'+i).click(function(){
-                            $('#list_status').html('<i class="icon-refresh"></i> 正在检查账单: #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']);
-                            $.getJSON('/ajax_check/'+i,function(ret){
-                               $('#list_status').html('<i class="icon-search"></i>  #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']+': 账单已检查完毕'+' 状态: '+ret[i]['Status']+' '+ret[i]['Date']);                                     
-                            });                
+                                $('#list_status').html('<i class="icon-refresh"></i> 正在检查账单: #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']);
+                                $.getJSON('/ajax_check/'+i,function(ret){
+                                $('#list_status').html('<i class="icon-search"></i>  #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']+': 账单已检查完毕'+' 状态: '+ret[i]['Status']+' '+ret[i]['Date']);
+                            });
+
                         }); 
                         
                                        
@@ -208,10 +231,12 @@
               $.getJSON('/ajax_refresh_log/',function(ret){
                     //返回值 ret 在这里是一个列表
                     $.each(ret, function(index, item){
-                       var i=ret.length-index-1;
-                       $('#logtable_body').append(
-                        "<tr id='test'>"+"<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+                
-                       "<td>"+ret[i]['Time']+"</td>"+
+                       var i=ret.length-index-1;//倒序排列显示
+                       if(i%2==0){
+                        $('#logtable_body').append(
+                        "<tr id='group'>"+"<td>"+(i/2+1)+"</td>"+
+                        "<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+
+                        "<td>"+ret[i]['Time']+"</td>"+
                         "<td>"+ret[i]['Ticket']+"</td>"+
                         "<td id='status_"+i+"'>"+ret[i]['Status']+"</td>"+
                         "<td>"+ret[i]['Account']+"</td>"+
@@ -224,6 +249,26 @@
                         "<td>"+ret[i]['Odd']+"</td>"+
                         "<td>"+ret[i]['Amount']+"</td>"+
                         "<td>"+ret[i]['Balance']+"</td></tr>")
+                       }
+                       else{
+                        $('#logtable_body').append(
+                        "<tr id='group'>"+"<td>"+(i+1)/2+"</td>"+
+                        "<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+
+                        "<td>"+ret[i]['Time']+"</td>"+
+                        "<td>"+ret[i]['Ticket']+"</td>"+
+                        "<td id='status_"+i+"'>"+ret[i]['Status']+"</td>"+
+                        "<td>"+ret[i]['Account']+"</td>"+
+                        "<td>"+ret[i]['Username']+"</td>"+
+                        "<td>"+ret[i]['Income']+"</td>"+
+                        "<td>"+ret[i]['Game']+"</td>"+
+                        "<td>"+ret[i]['Score']+"</td>"+
+                        "<td>"+ret[i]['Waterlevel']+"</td>"+
+                        "<td>"+ret[i]['Deal']+"</td>"+
+                        "<td>"+ret[i]['Odd']+"</td>"+
+                        "<td>"+ret[i]['Amount']+"</td>"+
+                        "<td>"+ret[i]['Balance']+"</td></tr>")
+                       }
+
 
                         $('#status_'+i).css("background","CornflowerBlue")
                         
@@ -241,8 +286,8 @@
                         $('#refresh_'+i).click(function(){
                             $('#list_status').html('<i class="icon-refresh"></i> 正在检查账单: #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']);
                             $.getJSON('/ajax_check/'+i,function(ret){
-                              $('#list_status').html('<i class="icon-search"></i>  #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']+': 账单已检查完毕'+' 状态: '+ret[i]['Status']+' '+ret[i]['Date']);                                     
-                            });                
+                            $('#list_status').html('<i class="icon-search"></i>  #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']+': 账单已检查完毕'+' 状态: '+ret[i]['Status']+' '+ret[i]['Date']);
+                            });
                         });         
                     });           
                  

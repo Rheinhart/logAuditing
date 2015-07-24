@@ -78,34 +78,34 @@ class LogRefresh(object):
                     self.small = line[-1] #parser 小或者受让
 
                 if (ACCOUNT_PINNACLE in line) or (ACCOUNT_ZHIBO in line) or (ACCOUNT_SBO in line):
-                    if (STATUS_WAITING in line) or (STATUS_SUCCESS in line):
-                        if DEAL_BIG in line[0]:
-                            self.deal = u'大球'
-                        elif DEAL_SMALL in line[0]:
-                            self.deal = u'小球'
-                        elif DEAL_HOME in line[0]:
-                            self.deal = u'主队'
-                        elif DEAL_GUEST in line[0]:
-                            self.deal = u'客队'
-                        self.deal += str(line[1])                                       # parser 成交额
-                        self.odd = re.findall("\xc5\xe2\xc2\xca:(.*)", line[2])[0]      # parser 赔率
-                        self.amount = re.findall("\xca\xfd\xb6\xee:(.*)", line[3])[0]   # parser 数额
-                        self.score = re.findall("\xb1\xc8\xb7\xd6:(.*)", line[4])[0]    # parser 比分
-                        self.ticket = re.findall("\xb5\xa5\xba\xc5:(.*)", line[5])[0]   # parser 账单
-                        self.status = re.findall("\xd7\xb4\xcc\xac:(.*)", line[6])[0]   # parser 状态
-                        self.account = re.findall("\xd5\xcb\xbb\xa7:(.*)", line[7])[0]  # parser 账户
-                        self.username = line[8]                                         # parser 用户名
-                        self.balance = re.findall("\xd3\xe0\xb6\xee:(.*)", line[9])[0]  # parser 余额
-                        self.data = {'Date':self.date, 'Time': self.time,'Game':self.game, 'Income': self.income, 'Waterlevel': self.prelevel, 'Deal': self.deal, 'Odd': self.odd,'Score':self.score, 'Amount':
-                                         self.amount, 'Ticket': self.ticket, 'Status': self.status, 'Account': self.account, 'Username': self.username, 'Balance': self.balance}
-                        #print 'json:'
-                        #print self.data
-                        for var in list:
-                            if var['Ticket'] == self.ticket:
-                                tflag = False
-                        if tflag:
-                            list.append(self.data)
-                        tflag = True
+                    #if (STATUS_WAITING in line) or (STATUS_SUCCESS in line):
+                    if DEAL_BIG in line[0]:
+                        self.deal = u'大球'
+                    elif DEAL_SMALL in line[0]:
+                        self.deal = u'小球'
+                    elif DEAL_HOME in line[0]:
+                        self.deal = u'主队'
+                    elif DEAL_GUEST in line[0]:
+                        self.deal = u'客队'
+                    self.deal += str(line[1])                                       # parser 成交额
+                    self.odd = re.findall("\xc5\xe2\xc2\xca:(.*)", line[2])[0]      # parser 赔率
+                    self.amount = re.findall("\xca\xfd\xb6\xee:(.*)", line[3])[0]   # parser 数额
+                    self.score = re.findall("\xb1\xc8\xb7\xd6:(.*)", line[4])[0]    # parser 比分
+                    self.ticket = re.findall("\xb5\xa5\xba\xc5:(.*)", line[5])[0]   # parser 账单
+                    self.status = re.findall("\xd7\xb4\xcc\xac:(.*)", line[6])[0]   # parser 状态
+                    self.account = re.findall("\xd5\xcb\xbb\xa7:(.*)", line[7])[0]  # parser 账户
+                    self.username = line[8]                                         # parser 用户名
+                    self.balance = re.findall("\xd3\xe0\xb6\xee:(.*)", line[9])[0]  # parser 余额
+                    self.data = {'Date':self.date, 'Time': self.time,'Game':self.game, 'Income': self.income, 'Waterlevel': self.prelevel, 'Deal': self.deal, 'Odd': self.odd,'Score':self.score, 'Amount':
+                        self.amount, 'Ticket': self.ticket, 'Status': self.status, 'Account': self.account, 'Username': self.username, 'Balance': self.balance}
+                    #print 'json:'
+                    #print self.data
+                    for var in list:
+                        if var['Ticket'] == self.ticket:
+                            tflag = False
+                    if tflag:
+                        list.append(self.data)
+                    tflag = True
             return True
         except IOError:
             print('Log File Error!')

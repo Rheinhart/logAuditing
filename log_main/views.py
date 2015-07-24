@@ -55,14 +55,15 @@ def ajax_check(request,num):
 
     #to find the account in the logList
 
-    if LOG_LIST[i]['Account'] == 'Pinnacle':
-        LOG_LIST[i]['Status'] = p_check.ticket_check(LOG_LIST[i]['Username'],LOG_LIST[i]['Ticket'])
+    if LOG_LIST[i]['Status'] != 'Success':
+        if LOG_LIST[i]['Account'] == 'Pinnacle':
+            LOG_LIST[i]['Status'] = p_check.ticket_check(LOG_LIST[i]['Username'],LOG_LIST[i]['Ticket'])
 
-    elif LOG_LIST[i]['Account'] == 'Zhibo':
-        LOG_LIST[i]['Status'] = z_check.ticket_check(LOG_LIST[i]['Username'],LOG_LIST[i]['Ticket'])
+        elif LOG_LIST[i]['Account'] == 'Zhibo':
+            LOG_LIST[i]['Status'] = z_check.ticket_check(LOG_LIST[i]['Username'],LOG_LIST[i]['Ticket'])
 
-    elif LOG_LIST[i]['Account'] == 'Sbo':
-        LOG_LIST[i]['Status'] = s_check.ticket_check(LOG_LIST[i]['Username'],LOG_LIST[i]['Ticket'])
+        elif LOG_LIST[i]['Account'] == 'Sbo':
+            LOG_LIST[i]['Status'] = s_check.ticket_check(LOG_LIST[i]['Username'],LOG_LIST[i]['Ticket'])
 
     return HttpResponse(json.dumps(LOG_LIST), content_type='application/json')
 
@@ -74,7 +75,7 @@ def ajax_check_all(request, account):
 
     if account == 'All':
         for log in LOG_LIST:
-            if log['Status'] == 'Waiting':
+            if log['Status'] != 'Success':
                 if log['Account'] == 'Pinnacle':
                     LOG_LIST['Status'] = p_check.ticket_check(log['Username'], log['Ticket'])
                 elif log['Account'] == 'Zhibo':
@@ -86,19 +87,19 @@ def ajax_check_all(request, account):
 
     elif account == 'Pinnacle':
         for log in LOG_LIST:
-            if log['Status'] == 'Waiting' and log['Account'] == 'Pinnacle':
+            if log['Status'] != 'Success' and log['Account'] == 'Pinnacle':
                     print 'Checking '+log['Account']+' '+log['Ticket']
                     log['Status'] = p_check.ticket_check(log['Username'], log['Ticket'])
 
     elif account == 'Zhibo':
         for log in LOG_LIST:
-            if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
+            if log['Status'] != 'Success' and log['Account'] == 'Zhibo':
                     print 'Checking '+log['Account']+' '+log['Ticket']
                     log['Status'] = z_check.ticket_check(log['Username'], log['Ticket'])
 
     elif account == 'Sbo':
         for log in LOG_LIST:
-            if log['Status'] == 'Waiting' and log['Account'] == 'Zhibo':
+            if log['Status'] != 'Success' and log['Account'] == 'Zhibo':
                     print 'Checking '+log['Account']+' '+log['Ticket']
                     LOG_LIST['Status'] = s_check.ticket_check(log['Username'], log['Ticket'])
 

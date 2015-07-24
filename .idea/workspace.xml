@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="35f201a9-c542-4e14-834c-8e7e28ba5675" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Zhibo_capcha.jpg" afterPath="$PROJECT_DIR$/Zhibo_capcha.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cache.txt" afterPath="$PROJECT_DIR$/cache.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log_main/templates/index.html" afterPath="$PROJECT_DIR$/log_main/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log_main/log_refresh.py" afterPath="$PROJECT_DIR$/log_main/log_refresh.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log_main/views.py" afterPath="$PROJECT_DIR$/log_main/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="1df0cc00-0045-427d-8799-87a239134f9f" name="New changelist" comment="">
@@ -32,10 +29,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ticket_check.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ticket_check.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/log_main/ticket_check.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="10.639881">
+            <state vertical-scroll-proportion="0.0">
               <caret line="335" column="57" selection-start-line="335" selection-start-column="57" selection-end-line="335" selection-end-column="57" />
               <folding>
                 <element signature="e#24#34#0" expanded="true" />
@@ -68,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-81.70968">
-              <caret line="165" column="55" selection-start-line="165" selection-start-column="55" selection-end-line="165" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.46038863">
+              <caret line="294" column="86" selection-start-line="294" selection-start-column="86" selection-end-line="294" selection-end-column="86" />
               <folding />
             </state>
           </provider>
@@ -625,7 +622,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437765232109</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="index.html: 添加组号&#10;-----------------&#10;Log Path 改为在config。&#10;Zhibo finduser: 改为通过预存zhibo 用户字典查询&#10;">
+      <created>1437779895495</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1437779895495</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView">
@@ -647,9 +650,9 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.015695067" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21188341" sideWeight="0.7035865" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18049328" sideWeight="0.7035865" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16086498" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16086498" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.46413502" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20727848" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -697,7 +700,8 @@
     <MESSAGE value="Zhibo finduser: another ways, But can not search more than 3 times: post error!&#10;refactor sth!" />
     <MESSAGE value="Zhibo finduser: 改为通过预存zhibo 用户字典查询" />
     <MESSAGE value="Log Path 改为在config。&#10;Zhibo finduser: 改为通过预存zhibo 用户字典查询&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Log Path 改为在config。&#10;Zhibo finduser: 改为通过预存zhibo 用户字典查询&#10;" />
+    <MESSAGE value="index.html: 添加组号&#10;-----------------&#10;Log Path 改为在config。&#10;Zhibo finduser: 改为通过预存zhibo 用户字典查询&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="index.html: 添加组号&#10;-----------------&#10;Log Path 改为在config。&#10;Zhibo finduser: 改为通过预存zhibo 用户字典查询&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1003,14 +1007,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-81.70968">
-          <caret line="165" column="55" selection-start-line="165" selection-start-column="55" selection-end-line="165" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log_main/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.66071427">
@@ -1023,11 +1019,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/log_main/ticket_check.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="10.639881">
+        <state vertical-scroll-proportion="0.0">
           <caret line="335" column="57" selection-start-line="335" selection-start-column="57" selection-end-line="335" selection-end-column="57" />
           <folding>
             <element signature="e#24#34#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log_main/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46038863">
+          <caret line="294" column="86" selection-start-line="294" selection-start-column="86" selection-end-line="294" selection-end-column="86" />
+          <folding />
         </state>
       </provider>
     </entry>

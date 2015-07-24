@@ -80,82 +80,82 @@
 
     $(document).ready(function(){
 
-      //login 
+      //login
       $('#login_all').click(function(){
-        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆全部账号,请稍后'); 
-        
-         $.getJSON('/login/All',function(ret){               
-             $('#list_status').html('<i class="icon-search"></i> 全部账单登陆完毕');    
+        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆全部账号,请稍后');
+
+         $.getJSON('/login/All',function(ret){
+             $('#list_status').html('<i class="icon-search"></i> 全部账单登陆完毕');
           });
       });
       $('#login_Pinnacle').click(function(){
 
-        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Pinnacle账号'); 
-               
-        $.getJSON('/login/Pinnacle',function(ret){               
-             $('#list_status').html('<i class="icon-search"></i> Pinnacle成功登陆');    
+        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Pinnacle账号');
+
+        $.getJSON('/login/Pinnacle',function(ret){
+             $('#list_status').html('<i class="icon-search"></i> Pinnacle成功登陆');
         });
       });
       $('#login_Zhibo').click(function(){
 
-        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Zhibo账号'); 
-               
-        $.getJSON('/login/Zhibo',function(ret){               
-             $('#list_status').html('<i class="icon-search"></i> Zhibo成功登陆');    
+        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Zhibo账号');
+
+        $.getJSON('/login/Zhibo',function(ret){
+             $('#list_status').html('<i class="icon-search"></i> Zhibo成功登陆');
         });
       });
       $('#login_Sbo').click(function(){
 
-        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Sbo账号'); 
-               
-        $.getJSON('/login/Sbo',function(ret){               
-             $('#list_status').html('<i class="icon-search"></i> Sbo成功登陆');    
+        $('#list_status').html('<i class="icon-refresh"></i> 正在登陆Sbo账号');
+
+        $.getJSON('/login/Sbo',function(ret){
+             $('#list_status').html('<i class="icon-search"></i> Sbo成功登陆');
         });
       });
 
 
       //check all
       $('#check_all').click(function(){
-        $('#list_status').html('<i class="icon-refresh"></i> 正在检查全部账单,请稍后'); 
-        
+        $('#list_status').html('<i class="icon-refresh"></i> 正在检查全部账单,请稍后');
+
          $.getJSON('/ajax_check_all/All',function(ret){
-             $('#list_status').html('<i class="icon-search"></i> 全部账单检查完毕');    
+             $('#list_status').html('<i class="icon-search"></i> 全部账单检查完毕');
           });
       });
 
       $('#check_all_Pinnacle').click(function(){
 
-        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Pinnacle账单:'); 
-               
+        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Pinnacle账单:');
+
         $.getJSON('/ajax_check_all/Pinnacle',function(ret){
-             $('#list_status').html('<i class="icon-search"></i> 全部Pinnacle账单检查完毕');    
+             $('#list_status').html('<i class="icon-search"></i> 全部Pinnacle账单检查完毕');
         });
       });
       $('#check_all_Zhibo').click(function(){
 
-        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Zhibo账单:'); 
-               
+        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Zhibo账单:');
+
         $.getJSON('/ajax_check_all/Zhibo',function(ret){
-             $('#list_status').html('<i class="icon-search"></i> 全部Zhibo账单检查完毕');    
+             $('#list_status').html('<i class="icon-search"></i> 全部Zhibo账单检查完毕');
         });
       });
       $('#check_all_Sbo').click(function(){
 
-        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Sbo账单:'); 
-               
+        $('#list_status').html('<i class="icon-refresh"></i> 检查全部Sbo账单:');
+
         $.getJSON('/ajax_check_all/Sbo',function(ret){
-             $('#list_status').html('<i class="icon-search"></i> 全部Sbo账单检查完毕');    
+             $('#list_status').html('<i class="icon-search"></i> 全部Sbo账单检查完毕');
         });
       });
 
       //save
       $('#save_log').click(function(){
         $('#list_status').html('<i class="icon-refresh"></i> 正在保存当前log数据,请稍后');
-        
+
          $.getJSON('/ajax_save_log',function(ret){
-             $('#list_status').html('<i class="icon-search"></i> 最新log数据保存完毕');    
+             $('#list_status').html('<i class="icon-search"></i> 最新log数据保存完毕');
           });
-      });           
+      });
 
       // 列表 refreh list
       $('#seek_log').click(function(){
@@ -164,9 +164,11 @@
                     //返回值 ret 在这里是一个列表
                     $.each(ret, function(index, item){
                       var i=ret.length-index-1;//倒序排列显示
+                      var group
                       if(i%2==0){
+                        group = i/2+1 //判断组
                         $('#logtable_body').append(
-                        "<tr id='group'>"+"<td>"+(i/2+1)+"</td>"+
+                        "<tr id='group'>"+"<td>"+group+"</td>"+
                         "<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+
                         "<td>"+ret[i]['Time']+"</td>"+
                         "<td>"+ret[i]['Ticket']+"</td>"+
@@ -183,8 +185,9 @@
                         "<td>"+ret[i]['Balance']+"</td></tr>")
                        }
                        else{
+                        group = (i+1)/2
                         $('#logtable_body').append(
-                        "<tr id='group'>"+"<td>"+(i+1)/2+"</td>"+
+                        "<tr id='group'>"+"<td>"+group+"</td>"+
                         "<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+
                         "<td>"+ret[i]['Time']+"</td>"+
                         "<td>"+ret[i]['Ticket']+"</td>"+
@@ -205,26 +208,26 @@
 
                         if(ret[i]['Account']=='Pinnacle'){
                          $('#refresh_'+i).css("background","MediumSeaGreen");
-                        } 
+                        }
                         if(ret[i]['Account']=='Zhibo'){
                          $('#refresh_'+i).css("background","MediumPurple");
-                        } 
+                        }
                         if(ret[i]['Account']=='Sbo'){
                          $('#refresh_'+i).css("background","DeepSkyBlue");
-                        } 
-                        $('#refresh_'+i).css("border","0");        
+                        }
+                        $('#refresh_'+i).css("border","0");
 
 
                         $('#refresh_'+i).click(function(){
-                                $('#list_status').html('<i class="icon-refresh"></i> 正在检查账单: #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']);
+                                $('#list_status').html('<i class="icon-refresh"></i> 正在检查账单: 组'+group+' #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']);
                                 $.getJSON('/ajax_check/'+i,function(ret){
-                                $('#list_status').html('<i class="icon-search"></i>  #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']+': 账单已检查完毕'+' 状态: '+ret[i]['Status']+' '+ret[i]['Date']);
+                                $('#list_status').html('<i class="icon-search"></i>  组'+group+' #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']+': 账单已检查完毕'+' 状态: '+ret[i]['Status']+' '+ret[i]['Date']);
                             });
 
-                        }); 
-                        
-                                       
-              });    
+                        });
+
+
+              });
 
           setInterval(function() {
               $('#logtable_body').empty();
@@ -232,9 +235,11 @@
                     //返回值 ret 在这里是一个列表
                     $.each(ret, function(index, item){
                        var i=ret.length-index-1;//倒序排列显示
+                       var group
                        if(i%2==0){
+                        group = i/2+1
                         $('#logtable_body').append(
-                        "<tr id='group'>"+"<td>"+(i/2+1)+"</td>"+
+                        "<tr id='group'>"+"<td>"+group+"</td>"+
                         "<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+
                         "<td>"+ret[i]['Time']+"</td>"+
                         "<td>"+ret[i]['Ticket']+"</td>"+
@@ -251,8 +256,9 @@
                         "<td>"+ret[i]['Balance']+"</td></tr>")
                        }
                        else{
+                        group = (i+1)/2
                         $('#logtable_body').append(
-                        "<tr id='group'>"+"<td>"+(i+1)/2+"</td>"+
+                        "<tr id='group'>"+"<td>"+group+"</td>"+
                         "<td>"+"<button type='button' style='width:40px' class='badge' id='refresh_"+i+"' >#"+(i+1)+"</button>"+"</td>"+
                         "<td>"+ret[i]['Time']+"</td>"+
                         "<td>"+ret[i]['Ticket']+"</td>"+
@@ -271,39 +277,39 @@
 
 
                         $('#status_'+i).css("background","CornflowerBlue")
-                        
+
                          if(ret[i]['Account']=='Pinnacle'){
                          $('#refresh_'+i).css("background","MediumSeaGreen");
-                        } 
+                        }
                         if(ret[i]['Account']=='Zhibo'){
                          $('#refresh_'+i).css("background","MediumPurple");
-                        } 
+                        }
                         if(ret[i]['Account']=='Sbo'){
                          $('#refresh_'+i).css("background","DeepSkyBlue");
-                        } 
-                        $('#refresh_'+i).css("border","0");         
+                        }
+                        $('#refresh_'+i).css("border","0");
 
                         $('#refresh_'+i).click(function(){
-                            $('#list_status').html('<i class="icon-refresh"></i> 正在检查账单: #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']);
-                            $.getJSON('/ajax_check/'+i,function(ret){
-                            $('#list_status').html('<i class="icon-search"></i>  #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']+': 账单已检查完毕'+' 状态: '+ret[i]['Status']+' '+ret[i]['Date']);
+                            $('#list_status').html('<i class="icon-refresh"></i> 正在检查账单: 组'+group+' #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']);
+                                $.getJSON('/ajax_check/'+i,function(ret){
+                                $('#list_status').html('<i class="icon-search"></i>  组'+group+' #'+(i+1)+' '+ret[i]['Account']+' '+ret[i]['Ticket']+': 账单已检查完毕'+' 状态: '+ret[i]['Status']+' '+ret[i]['Date']);
                             });
-                        });         
-                    });           
-                 
-              });    
+                        });
+                    });
+
+              });
           }, 20000);
 
         // setInterval(function() {
-             
-        //   $('#list_status').html(' <span class="glyphicon glyphicon-search"></span> 正在自动检查全部账单,请稍后'); 
-        
+
+        //   $('#list_status').html(' <span class="glyphicon glyphicon-search"></span> 正在自动检查全部账单,请稍后');
+
         //   $.getJSON('/ajax_check_all/',function(ret){
-        //      $('#list_status').html(' <span class="glyphicon glyphicon-search"></span> 全部账单检查完毕');    
-        //   }); 
+        //      $('#list_status').html(' <span class="glyphicon glyphicon-search"></span> 全部账单检查完毕');
+        //   });
         //   }, 30000);
-    
-      });           
+
+      });
     });
 });
 </script>
